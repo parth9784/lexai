@@ -2,7 +2,13 @@ import { motion, useScroll } from "framer-motion";
 import { useState } from "react";
 import { FiMenu, FiX } from "react-icons/fi";
 import { Scale, ArrowRight } from 'lucide-react';
-export default function Navbar() {
+export default function Navbar({
+    scrollToFeatures,
+    scrollToContact,
+}: {
+    scrollToFeatures: () => void;
+    scrollToContact: () => void;
+}) {
     const { scrollYProgress } = useScroll();
     const [isOpen, setIsOpen] = useState(false);
     const menuItems = ["Home", "Features", "Docs", "Contact"];
@@ -23,7 +29,7 @@ export default function Navbar() {
                 </div>
 
 
-                <ul className="hidden md:flex space-x-8 items-center text-gray-700 font-medium">
+                {/* <ul className="hidden md:flex space-x-8 items-center text-gray-700 font-medium">
                     {menuItems.map((item) => (
                         <li
                             key={item}
@@ -44,16 +50,76 @@ export default function Navbar() {
                             <span>Login</span> <ArrowRight size={18} />
                         </button>
                     </li>
+                </ul> */}
+                <ul className="hidden md:flex space-x-8 items-center text-gray-700 font-medium">
+                    <li className="group relative cursor-pointer overflow-hidden">
+                        <span
+                            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+                            className="text-gray-700 group-hover:text-blue-600 transition duration-200"
+                        >
+                            Home
+                        </span>
+                        <span className="absolute bottom-0 left-0 h-[2px] w-0 bg-blue-600 transition-all duration-300 ease-out group-hover:w-full"></span>
+                    </li>
+
+                    <li className="group relative cursor-pointer overflow-hidden">
+                        <span
+                            onClick={scrollToFeatures}
+                            className="text-gray-700 group-hover:text-blue-600 transition duration-200"
+                        >
+                            Features
+                        </span>
+                        <span className="absolute bottom-0 left-0 h-[2px] w-0 bg-blue-600 transition-all duration-300 ease-out group-hover:w-full"></span>
+                    </li>
+
+                    <li className="group relative cursor-pointer overflow-hidden">
+                        <span
+                            onClick={() => alert("Docs section not implemented")}
+                            className="text-gray-700 group-hover:text-blue-600 transition duration-200"
+                        >
+                            Docs
+                        </span>
+                        <span className="absolute bottom-0 left-0 h-[2px] w-0 bg-blue-600 transition-all duration-300 ease-out group-hover:w-full"></span>
+                    </li>
+
+                    <li className="group relative cursor-pointer overflow-hidden">
+                        <span
+                            onClick={scrollToContact}
+                            className="text-gray-700 group-hover:text-blue-600 transition duration-200"
+                        >
+                            Contact
+                        </span>
+                        <span className="absolute bottom-0 left-0 h-[2px] w-0 bg-blue-600 transition-all duration-300 ease-out group-hover:w-full"></span>
+                    </li>
+
+                    <li>
+                        <button
+                            className="ml-4 flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-200"
+                            aria-label="Try Demo"
+                        >
+                            <span>Login</span> <ArrowRight size={18} />
+                        </button>
+                    </li>
                 </ul>
+
 
                 {/* Mobile Menu Button */}
                 <div className="md:hidden">
                     <button onClick={() => setIsOpen(!isOpen)} aria-label="Toggle Menu">
-                        {isOpen ? (
-                            <FiX className="text-2xl text-blue-700" />
-                        ) : (
-                            <FiMenu className="text-2xl text-blue-700" />
+                        {isOpen && (
+                            <ul className="md:hidden mt-4 space-y-4 text-gray-700 font-medium px-2">
+                                <li onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}>Home</li>
+                                <li onClick={scrollToFeatures}>Features</li>
+                                <li onClick={() => alert("Docs not implemented")}>Docs</li>
+                                <li onClick={scrollToContact}>Contact</li>
+                                <li>
+                                    <button className="w-full bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-200">
+                                        Try Demo
+                                    </button>
+                                </li>
+                            </ul>
                         )}
+
                     </button>
                 </div>
             </div>
@@ -82,7 +148,7 @@ export default function Navbar() {
             )}
             <motion.div
                 style={{ scaleX: scrollYProgress }}
-                className="h-[3px]  bg-blue-600 fixed top-[72px] left-0 right-0 z-40"
+                className="h-[3px]   bg-blue-600 fixed top-[72px] left-0 right-0 z-40"
             />
 
         </motion.nav>

@@ -3,18 +3,30 @@ import ContactSection from './Components/Contact';
 import FAQSection from './Components/Faq';
 import FeatureSection from './Components/FeatureSection';
 import Navbar from './Components/Navbar';
-// import FadeScrollSection from './Components/test';
-
+import { useRef } from "react";
 function App() {
-
+  const featureRef = useRef<HTMLDivElement>(null);
+  const contactRef = useRef<HTMLDivElement>(null);
+  const scrollTo = (ref: any) => {
+    ref.current?.scrollIntoView({ behavior: "smooth" });
+  };
 
   return (
     <div className="bg-white">
-      <Navbar />
-      <FeatureSection />
+      <Navbar
+        scrollToFeatures={() => scrollTo(featureRef)}
+        scrollToContact={() => scrollTo(contactRef)} />
+
+      <div ref={featureRef}>
+        <FeatureSection />
+      </div>
 
       <FAQSection />
-      <ContactSection />
+
+      <div ref={contactRef}>
+        <ContactSection />
+      </div>
+
     </div>
   )
 }
