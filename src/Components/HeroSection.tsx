@@ -14,7 +14,7 @@ export default function HeroSection() {
                     Your Legal AI Partner. <br className="hidden md:inline" />
                     Reliable. Fast. Smart.
                 </h1>
-                <p className="text-lg md:text-xl text-gray-700 mb-8">
+                <p className="text-md md:text-lg text-gray-700 mb-8 manrope-500">
                     LexAi empowers legal professionals with AI-driven research, case insights, and real-time legal intelligence.
                 </p>
                 <div className="flex flex-col sm:flex-row justify-center gap-4">

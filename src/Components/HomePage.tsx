@@ -4,34 +4,34 @@ import HeroSection from "./HeroSection";
 
 const features = [
     {
-        icon: <FaBrain className="text-blue-600 text-3xl" />,
+        icon: <FaBrain className="text-blue-600 text-4xl" />,
         title: "Context-Aware Suggestions",
         description:
             "Get intelligent legal suggestions from extensive law databases like Mumbai High Court and more.",
     },
     {
-        icon: <FaDownload className="text-blue-600 text-3xl" />,
+        icon: <FaDownload className="text-blue-600 text-4xl" />,
         title: "Real-time Brave Access",
         description:
-            "Access latest info from the web anytime. All interactions can be downloaded for future reference.",
+            "Access the latest legal information online. Export any chat or insight for future use.",
     },
     {
-        icon: <FaSearch className="text-blue-600 text-3xl" />,
+        icon: <FaSearch className="text-blue-600 text-4xl" />,
         title: "Deep Legal Research",
         description:
-            "Research complex, narrow legal topics and generate structured PDFs, documents, and case briefs.",
+            "Dive into specific legal subjects and generate ready-to-use structured PDFs, summaries, and docs.",
     },
     {
-        icon: <FaLanguage className="text-blue-600 text-3xl" />,
-        title: "OCR & Translate",
+        icon: <FaLanguage className="text-blue-600 text-4xl" />,
+        title: "OCR & Translation",
         description:
-            "Recover text from damaged FIRs and legal files. Translate them accurately into new languages.",
+            "Revive damaged FIRs or paper files with OCR. Translate legal text into modern, usable language.",
     },
     {
-        icon: <FaBalanceScale className="text-blue-600 text-3xl" />,
-        title: "Case Similarity & Lawsuit Help",
+        icon: <FaBalanceScale className="text-blue-600 text-4xl" />,
+        title: "Case Similarity & Lawsuit Generator",
         description:
-            "Find similar case laws and get AI-generated suggestions for potential lawsuits and strategies.",
+            "Find precedent cases and get smart suggestions on next legal actions or filing suits.",
     },
 ];
 
@@ -39,36 +39,35 @@ export default function HomePage() {
     return (
         <div className="min-h-screen bg-gradient-to-b from-white to-blue-100 text-gray-900">
             <HeroSection />
-            <motion.h1
-                initial={{ opacity: 0, y: -50 }}
+
+            {/* Features Title Section */}
+            <motion.div
+                initial={{ opacity: 0, y: -30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6 }}
-                className="text-5xl font-bold text-center mb-6 text-blue-800"
+                className="text-center my-12"
             >
-                Welcome to LexAi
-            </motion.h1>
+                <h2 className="text-4xl font-bold text-blue-800 mb-4">
+                    LexAi Features
+                </h2>
+                <p className="text-gray-600 text-lg max-w-2xl mx-auto">
+                    Discover the tools that make LexAi the most efficient and reliable AI assistant for modern legal professionals.
+                </p>
+            </motion.div>
 
-            <motion.p
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.3, duration: 0.6 }}
-                className="text-center max-w-2xl mx-auto text-gray-600 mb-12"
-            >
-                Your AI-powered legal assistant designed to research deeply, understand legacy documents, and suggest actions smartly.
-            </motion.p>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+            {/* Feature Cards */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 max-w-7xl mx-auto px-6 pb-20">
                 {features.map((feature, index) => (
                     <motion.div
                         key={index}
-                        initial={{ opacity: 0, y: 20 }}
+                        initial={{ opacity: 0, y: 30 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: index * 0.2 }}
-                        className="bg-white border border-blue-200 p-6 rounded-2xl shadow-md hover:scale-105 hover:shadow-xl transition-transform"
+                        className="bg-white border border-blue-100 rounded-2xl shadow-sm hover:shadow-lg hover:scale-[1.03] transition-all duration-300 p-6"
                     >
-                        <div className="mb-4 flex justify-center">{feature.icon}</div>
-                        <h3 className="text-xl font-semibold text-center text-blue-800 mb-2">{feature.title}</h3>
-                        <p className="text-gray-700 text-center">{feature.description}</p>
+                        <div className="flex justify-center mb-4">{feature.icon}</div>
+                        <h3 className="text-xl font-semibold text-center text-blue-700 mb-2">{feature.title}</h3>
+                        <p className="text-gray-600 text-center text-sm leading-relaxed">{feature.description}</p>
                     </motion.div>
                 ))}
             </div>

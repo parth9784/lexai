@@ -1,12 +1,14 @@
-import { motion } from "framer-motion";
+import { motion, useScroll } from "framer-motion";
 import { useState } from "react";
 import { FiMenu, FiX } from "react-icons/fi";
 import { Scale } from 'lucide-react';
 export default function Navbar() {
+    const { scrollYProgress } = useScroll();
     const [isOpen, setIsOpen] = useState(false);
     const menuItems = ["Home", "Features", "Docs", "Contact"];
 
     return (
+
         <motion.nav
             initial={{ y: -80, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
@@ -70,6 +72,12 @@ export default function Navbar() {
                     </li>
                 </ul>
             )}
+            <motion.div
+                style={{ scaleX: scrollYProgress }}
+                className="h-[3px]  bg-blue-600 fixed top-[72px] left-0 right-0 z-40"
+            />
+
         </motion.nav>
+
     );
 }
