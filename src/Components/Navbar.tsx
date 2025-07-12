@@ -8,7 +8,6 @@ export default function Navbar({ }: any) {
     const menuItems = ["Home", "Features", "Docs", "Contact"];
 
     return (
-
         <motion.nav
             initial={{ y: -80, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
