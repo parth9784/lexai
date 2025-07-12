@@ -3,7 +3,7 @@ import ContactSection from './Components/Contact';
 import FAQSection from './Components/Faq';
 import FeatureSection from './Components/FeatureSection';
 import Navbar from './Components/Navbar';
-import FadeScrollSection from './Components/test';
+// import FadeScrollSection from './Components/test';
 
 function App() {
 
