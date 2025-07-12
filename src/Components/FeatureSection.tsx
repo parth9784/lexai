@@ -35,12 +35,11 @@ const features = [
     },
 ];
 
-export default function HomePage() {
+export default function FeatureSection() {
     return (
-        <div className="min-h-screen bg-gradient-to-b from-white to-blue-100 text-gray-900">
+        <div className="min-h-screen bg-gradient-to-b  text-gray-900 manrope-500">
             <HeroSection />
 
-            {/* Features Title Section */}
             <motion.div
                 initial={{ opacity: 0, y: -30 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -56,7 +55,7 @@ export default function HomePage() {
             </motion.div>
 
             {/* Feature Cards */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 max-w-7xl mx-auto px-6 pb-20">
+            {/* <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 max-w-7xl mx-auto px-6 pb-20">
                 {features.map((feature, index) => (
                     <motion.div
                         key={index}
@@ -70,7 +69,27 @@ export default function HomePage() {
                         <p className="text-gray-600 text-center text-sm leading-relaxed">{feature.description}</p>
                     </motion.div>
                 ))}
+            </div> */}
+            <div className="flex flex-wrap justify-center gap-10 max-w-7xl mx-auto px-6 pb-20">
+                {features.map((feature, index) => (
+                    <motion.div
+                        key={index}
+                        initial={{ opacity: 0, y: 30 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: index * 0.2 }}
+                        className="bg-white border cursor-pointer border-blue-100 rounded-2xl shadow-sm hover:shadow-lg hover:scale-[1.03] transition-all duration-300 p-6 w-full sm:w-[45%] lg:w-[30%]"
+                    >
+                        <div className="flex justify-center mb-4">{feature.icon}</div>
+                        <h3 className="text-xl font-semibold text-center text-blue-700 mb-2">
+                            {feature.title}
+                        </h3>
+                        <p className="text-gray-600 text-center text-sm leading-relaxed">
+                            {feature.description}
+                        </p>
+                    </motion.div>
+                ))}
             </div>
+
         </div>
     );
 }

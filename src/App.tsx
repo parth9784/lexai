@@ -1,8 +1,9 @@
 import './App.css'
 import ContactSection from './Components/Contact';
 import FAQSection from './Components/Faq';
-import HomePage from './Components/HomePage';
+import FeatureSection from './Components/FeatureSection';
 import Navbar from './Components/Navbar';
+import FadeScrollSection from './Components/test';
 
 function App() {
 
@@ -10,7 +11,8 @@ function App() {
   return (
     <div className="bg-white">
       <Navbar />
-      <HomePage />
+      <FeatureSection />
+
       <FAQSection />
       <ContactSection />
     </div>

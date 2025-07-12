@@ -1,7 +1,7 @@
 import { motion, useScroll } from "framer-motion";
 import { useState } from "react";
 import { FiMenu, FiX } from "react-icons/fi";
-import { Scale } from 'lucide-react';
+import { Scale, ArrowRight } from 'lucide-react';
 export default function Navbar() {
     const { scrollYProgress } = useScroll();
     const [isOpen, setIsOpen] = useState(false);
@@ -18,26 +18,30 @@ export default function Navbar() {
             <div className="max-w-7xl mx-auto flex items-center justify-between">
                 {/* Logo + Brand */}
                 <div className="flex items-center space-x-2 cursor-pointer">
-                    <Scale size={25} className="text-blue-600" />
-                    <span className="text-lg md:text-xl text-blue-700 manrope-600">LexAi</span>
+                    <Scale size={27} className="text-blue-600" />
+                    <span className="text-lg md:text-2xl text-blue-700 manrope-600">LexAi</span>
                 </div>
 
-                {/* Desktop Menu */}
+
                 <ul className="hidden md:flex space-x-8 items-center text-gray-700 font-medium">
                     {menuItems.map((item) => (
                         <li
                             key={item}
-                            className="hover:text-blue-600 transition-colors cursor-pointer"
+                            className="group relative cursor-pointer overflow-hidden"
                         >
-                            {item}
+                            <span className="text-gray-700 group-hover:text-blue-600 transition duration-200">
+                                {item}
+                            </span>
+                            <span className="absolute bottom-0 left-0 h-[2px] w-0 bg-blue-600 transition-all duration-300 ease-out group-hover:w-full"></span>
                         </li>
+
                     ))}
                     <li>
                         <button
-                            className="ml-4 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-200"
+                            className="ml-4 flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-200"
                             aria-label="Try Demo"
                         >
-                            Try Demo
+                            <span>Login</span> <ArrowRight size={18} />
                         </button>
                     </li>
                 </ul>
@@ -60,10 +64,14 @@ export default function Navbar() {
                     {menuItems.map((item) => (
                         <li
                             key={item}
-                            className="hover:text-blue-600 transition-colors cursor-pointer"
+                            className="group relative cursor-pointer overflow-hidden"
                         >
-                            {item}
+                            <span className="text-gray-700 group-hover:text-blue-600 transition duration-200">
+                                {item}
+                            </span>
+                            <span className="absolute bottom-0 left-0 h-[2px] w-0 bg-blue-600 transition-all duration-300 ease-out group-hover:w-full"></span>
                         </li>
+
                     ))}
                     <li>
                         <button className="w-full bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-200">
