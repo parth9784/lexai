@@ -1,6 +1,6 @@
 import { motion, useScroll } from "framer-motion";
 import { useState } from "react";
-import { FiMenu, FiX } from "react-icons/fi";
+// import { FiMenu, FiX } from "react-icons/fi";
 import { Scale, ArrowRight } from 'lucide-react';
 export default function Navbar({
     scrollToFeatures,
