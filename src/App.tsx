@@ -1,4 +1,5 @@
 import './App.css'
+import LexAiChat from './Components/ChatBot';
 import ContactSection from './Components/Contact';
 import FAQSection from './Components/Faq';
 import FeatureSection from './Components/FeatureSection';
@@ -13,19 +14,20 @@ function App() {
 
   return (
     <div className="bg-white">
-      <Navbar
+      {/* <Navbar
         scrollToFeatures={() => scrollTo(featureRef)}
-        scrollToContact={() => scrollTo(contactRef)} />
+        scrollToContact={() => scrollTo(contactRef)} /> */}
 
-      <div ref={featureRef}>
+      {/* <div ref={featureRef}>
         <FeatureSection />
-      </div>
+      </div> */}
 
-      <FAQSection />
+      {/* <FAQSection /> */}
 
-      <div ref={contactRef}>
+      {/* <div ref={contactRef}>
         <ContactSection />
-      </div>
+      </div> */}
+      <LexAiChat />
 
     </div>
   )
