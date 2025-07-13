@@ -1,14 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Sidebar from './Sidebar';
 import ChatInput from './ChatInput';
-import { Copy, Check } from 'lucide-react';
+import { Copy, Check, Upload, MoreVertical, Save, Scale } from 'lucide-react';
 
 export default function LexAiChat() {
     const [messages, setMessages] = useState<{ from: string; text: string }[]>([]);
     const [input, setInput] = useState('');
     const [collapsed, setCollapsed] = useState(false);
     const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
-
     const messagesEndRef = useRef<HTMLDivElement>(null);
 
     const sendMessage = () => {
@@ -23,7 +22,7 @@ export default function LexAiChat() {
     const copyToClipboard = (text: string, index: number) => {
         navigator.clipboard.writeText(text);
         setCopiedIndex(index);
-        setTimeout(() => setCopiedIndex(null), 1000); // reset after 1s
+        setTimeout(() => setCopiedIndex(null), 1000);
     };
 
     useEffect(() => {
@@ -31,17 +30,28 @@ export default function LexAiChat() {
     }, [messages]);
 
     return (
-        <div className="flex h-screen w-screen text-white overflow-hidden">
+        <div className="flex h-screen w-screen text-white overflow-hidden manrope-500">
             <Sidebar collapsed={collapsed} toggleSidebar={() => setCollapsed(!collapsed)} />
 
-            <main className="flex-1 bg-[#0A101A] flex flex-col">
-                {/* Header */}
-                <div className="bg-[#102945] px-6 py-4 flex items-center justify-between shadow-md">
-                    <h2 className="text-xl font-bold">LexAi Chat</h2>
-                    <span className="text-[#C18D21] font-medium">Online</span>
+            <main className="flex-1 flex flex-col bg-[#0A101A]">
+                {/* TOP NAVBAR */}
+                <div className="bg-[#111317] h-12 px-6 flex items-center justify-between border-b border-[#1e1e1e]">
+                    <div className="text-white font-semibold text-lg flex gap-2 items-center">
+                        <Scale size={24} />
+                        LexAi</div>
+
+                    <div className="flex items-center gap-4">
+                        <button className="flex items-center gap-1 text-sm text-white hover:text-[#C18D21] transition">
+                            <Upload size={16} /> Share
+                        </button>
+
+                        <div className="bg-[#C18D21] text-black rounded-full w-8 h-8 flex items-center justify-center font-bold text-sm">
+                            P
+                        </div>
+                    </div>
                 </div>
 
-                {/* Messages */}
+                {/* Chat Messages */}
                 <div className="flex-1 overflow-y-auto px-6 pt-4 space-y-4 scrollbar-thin scrollbar-thumb-[#102945] scrollbar-track-[#0A101A]">
                     <div className="max-w-4xl w-full mx-auto flex flex-col space-y-4 pb-4">
                         {messages.map((msg, i) => (

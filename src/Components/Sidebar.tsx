@@ -3,9 +3,10 @@ import {
     Settings,
     LayoutDashboard,
     History,
-    PanelRight
+    PanelRight,
+    Scale
 } from 'lucide-react';
-// Optional: Add tooltip if desired
+
 
 export default function Sidebar({
     collapsed,
@@ -33,7 +34,9 @@ export default function Sidebar({
                         } mb-8`}
                 >
                     {!collapsed && (
-                        <h1 className="text-2xl font-bold text-[#C18D21]">LexAi</h1>
+                        <h1 className="text-2xl font-bold text-[#C18D21] flex gap-2 items-center">
+                            <Scale size={27} />
+                            LexAi</h1>
                     )}
                     <button
                         onClick={toggleSidebar}
