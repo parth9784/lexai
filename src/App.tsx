@@ -1,5 +1,5 @@
 import './App.css'
-import LexAiChat from './Components/ChatBot';
+// import LexAiChat from './Components/ChatBot';
 import ContactSection from './Components/Contact';
 import FAQSection from './Components/Faq';
 import FeatureSection from './Components/FeatureSection';
