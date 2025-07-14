@@ -1,35 +1,24 @@
+import { Route, Routes } from 'react-router-dom';
 import './App.css'
-// import LexAiChat from './Components/ChatBot';
-import ContactSection from './Components/Contact';
-import FAQSection from './Components/Faq';
-import FeatureSection from './Components/FeatureSection';
-import Navbar from './Components/Navbar';
-import { useRef } from "react";
+import HomePage from './Components/HomePage';
+import LoginPage from './Components/Login';
+import SignupPage from './Components/SignUp';
+import LexAiChat from './Components/ChatBot';
+
 function App() {
-  const featureRef = useRef<HTMLDivElement>(null);
-  const contactRef = useRef<HTMLDivElement>(null);
-  const scrollTo = (ref: any) => {
-    ref.current?.scrollIntoView({ behavior: "smooth" });
-  };
+
 
   return (
     <div className="bg-white">
-
-      <Navbar
-        scrollToFeatures={() => scrollTo(featureRef)}
-        scrollToContact={() => scrollTo(contactRef)} />
-
-      <div ref={featureRef}>
-        <FeatureSection />
-      </div>
-
-      <FAQSection />
-
-      <div ref={contactRef}>
-        <ContactSection />
-      </div>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/signup" element={<SignupPage />} />
+        <Route path='/chat' element={<LexAiChat />} />
+      </Routes>
+      {/* <HomePage /> */}
       {/* <LexAiChat /> */}
-
+      {/* <LoginPage /> */}
 
     </div >
   )

@@ -42,7 +42,6 @@ export default function Navbar({ }: any) {
                         >
                             <span>Get Started</span> <ArrowRight size={18} />
                         </button>
-
                     </li>
                 </ul>
 
