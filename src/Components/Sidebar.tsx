@@ -1,7 +1,6 @@
 import {
     MessageCircle,
     Settings,
-    LayoutDashboard,
     History,
     PanelRight,
     Scale
