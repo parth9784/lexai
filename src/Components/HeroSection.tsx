@@ -51,7 +51,7 @@ export default function HeroSection() {
                     and real-time legal intelligence.
                 </p>
                 <div className="flex flex-col sm:flex-row justify-center gap-4">
-                    <button className="px-6 py-3 bg-[#C08C21] cursor-pointer  text-white rounded-lg hover:bg-[#d09217]  transition shadow flex gap-2 items-center">
+                    <button className="px-6 py-3 bg-[#C08C21] cursor-pointer  text-white rounded-lg hover:bg-[#d09217]  transition shadow flex gap-2 items-center justify-center">
                         Request a Demo <ArrowRight size={23} />
                     </button>
                     <button className="px-6 py-3 border border-black text-[#C08C21] rounded-lg cursor-pointer hover:bg-[#C08C21] hover:text-white transition">

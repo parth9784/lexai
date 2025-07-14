@@ -50,9 +50,9 @@ export default function Navbar({ }: any) {
                 <div className="md:hidden">
                     <button onClick={() => setIsOpen(!isOpen)} aria-label="Toggle Menu">
                         {isOpen ? (
-                            <FiX className="text-2xl text-blue-700" />
+                            <FiX className="text-2xl text-[#C08C21]" />
                         ) : (
-                            <FiMenu className="text-2xl text-blue-700" />
+                            <FiMenu className="text-2xl text-[#C08C21]" />
                         )}
                     </button>
                 </div>
@@ -74,7 +74,7 @@ export default function Navbar({ }: any) {
 
                     ))}
                     <li>
-                        <button className="w-full bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-200">
+                        <button className="w-full bg-[#C08C21] text-white px-4 py-2 rounded-lg transition duration-200">
                             Get Started
                         </button>
                     </li>
