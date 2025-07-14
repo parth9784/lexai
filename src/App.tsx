@@ -1,5 +1,6 @@
 import './App.css'
 import LexAiChat from './Components/ChatBot';
+import { ThemeProvider } from 'next-themes';
 import ContactSection from './Components/Contact';
 import FAQSection from './Components/Faq';
 import FeatureSection from './Components/FeatureSection';
@@ -14,20 +15,22 @@ function App() {
 
   return (
     <div className="bg-white">
-      {/* <Navbar
+      <ThemeProvider attribute="class" defaultTheme="light">
+        {/* <Navbar
         scrollToFeatures={() => scrollTo(featureRef)}
         scrollToContact={() => scrollTo(contactRef)} /> */}
 
-      {/* <div ref={featureRef}>
+        {/* <div ref={featureRef}>
         <FeatureSection />
       </div> */}
 
-      {/* <FAQSection /> */}
+        {/* <FAQSection /> */}
 
-      {/* <div ref={contactRef}>
+        {/* <div ref={contactRef}>
         <ContactSection />
       </div> */}
-      <LexAiChat />
+        <LexAiChat />
+      </ThemeProvider>
 
     </div>
   )

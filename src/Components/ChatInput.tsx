@@ -19,7 +19,20 @@ export default function ChatInput({ input, setInput, sendMessage }: Props) {
     }, [input]);
 
     return (
-        <div className="bg-[#1c1f24] rounded-2xl shadow-lg flex px-4 py-3 gap-3 w-[70%] max-w-3xl mx-auto">
+        <div
+            style={{
+                backgroundColor: 'var(--theme-input-bg)',
+                color: 'var(--theme-text)',
+                borderRadius: '1rem',
+                boxShadow: '0 2px 10px rgba(0, 0, 0, 0.1)',
+                padding: '12px 16px',
+                display: 'flex',
+                gap: '12px',
+                width: '70%',
+                maxWidth: '768px',
+                margin: '0 auto',
+            }}
+        >
             <textarea
                 ref={textareaRef}
                 value={input}
@@ -31,16 +44,35 @@ export default function ChatInput({ input, setInput, sendMessage }: Props) {
                     }
                 }}
                 placeholder="Ask anything..."
-                className="bg-transparent resize-none max-h-30 min-h-[40px] overflow-y-auto flex-1 text-white placeholder-gray-400 outline-none scrollbar-thin scrollbar-thumb-[#3b3b3b] leading-relaxed pt-1"
+                style={{
+                    backgroundColor: 'transparent',
+                    color: 'var(--theme-text)',
+                    // placeholderColor: 'var(--theme-placeholder)',
+                    resize: 'none',
+                    minHeight: '40px',
+                    maxHeight: '160px',
+                    overflowY: 'auto',
+                    flex: 1,
+                    outline: 'none',
+                    border: 'none',
+                    fontSize: '14px',
+                    lineHeight: '1.4',
+                }}
             />
             <button
-                title="Send"
                 onClick={sendMessage}
-                className="text-white hover:text-[#C18D21] self-end pb-1"
+                title="Send"
+                style={{
+                    color: 'var(--theme-text)',
+                    alignSelf: 'flex-end',
+                    paddingBottom: '4px',
+                    background: 'none',
+                    border: 'none',
+                    cursor: 'pointer',
+                }}
             >
-                <SendHorizontal className="w-5 h-5" />
+                <SendHorizontal style={{ width: 20, height: 20 }} />
             </button>
         </div>
     );
 }
-

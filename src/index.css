@@ -57,3 +57,60 @@
   animation-timing-function: ease-in-out;
   animation-iteration-count: infinite;
 }
+
+/* index.css or App.css */
+:root {
+  --bg-color: white;
+  --text-color: black;
+  --bot-bg: #f0f0f0;
+  --user-bg: #e0e0e0;
+}
+
+.dark {
+  --bg-color: #0A101A;
+  --text-color: white;
+  --bot-bg: #0C1F34;
+  --user-bg: #CFCED0;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  transition: all 0.3s ease;
+}
+
+:root {
+  --theme-bg: #ffffff;
+  --theme-text: #000000;
+  --theme-input-bg: #f1f1f1;
+  --theme-placeholder: #888888;
+}
+
+.dark {
+  --theme-bg: #0A101A;
+  --theme-text: #ffffff;
+  --theme-input-bg: #1c1f24;
+  --theme-placeholder: #b3b3b3;
+}
+
+:root {
+  --sidebar-bg: #ffffff;
+  --sidebar-text: #000000;
+  --sidebar-icon: #333333;
+  --sidebar-hover: #f0f0f0;
+  --sidebar-footer: #555555;
+  --sidebar-divider: #ddd;
+  --accent: #C18D21;
+  --tooltip-bg: #333333;
+}
+
+.dark {
+  --sidebar-bg: #0C1F34;
+  --sidebar-text: #ffffff;
+  --sidebar-icon: #CFCED0;
+  --sidebar-hover: #113052;
+  --sidebar-footer: #B3B3B3;
+  --sidebar-divider: #102945;
+  --accent: #C18D21;
+  --tooltip-bg: #1b2d45;
+}
