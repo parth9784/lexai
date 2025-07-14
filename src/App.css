@@ -1,41 +1,94 @@
 @import "tailwindcss";
+
+/* Font Utilities */
 .manrope-600 {
   font-family: "Manrope", sans-serif;
-  font-optical-sizing: auto;
   font-weight: 600;
   font-style: normal;
+  font-optical-sizing: auto;
 }
 
 .manrope-500 {
   font-family: "Manrope", sans-serif;
-  font-optical-sizing: auto;
   font-weight: 500;
   font-style: normal;
+  font-optical-sizing: auto;
 }
 
+/* Theme Variables - Light Mode */
+:root {
+  --bg-color: #ffffff;
+  --text-color: #000000;
+  --bot-bg: #f0f0f0;
+  /* --user-bg: #e0e0e0; */
+  --user-bg: rgb(218, 168, 69);
 
-/* Custom Scrollbar Styles */
+  --theme-bg: #ffffff;
+  --theme-text: #000000;
+  --theme-input-bg: #f1f1f1;
+  --theme-placeholder: #888888;
+
+  --sidebar-bg: #ffffff;
+  --sidebar-text: #000000;
+  --sidebar-icon: #333333;
+  --sidebar-hover: #f0f0f0;
+  --sidebar-footer: #555555;
+  --sidebar-divider: #dddddd;
+  --accent: rgb(193, 141, 33);
+  --tooltip-bg: #333333;
+}
+
+/* Theme Variables - Dark Mode */
+.dark {
+  --bg-color: #212121;
+  --text-color: #ffffff;
+  --bot-bg: #404346;
+  --user-bg: #CFCED0;
+
+  --theme-bg: #0A101A;
+  --theme-text: #ffffff;
+  --theme-input-bg: #313130;
+  --theme-placeholder: #b3b3b3;
+
+  --sidebar-bg: #181919;
+  --sidebar-text: #ffffff;
+  --sidebar-icon: #CFCED0;
+  --sidebar-hover: #1a2633;
+  --sidebar-footer: #B3B3B3;
+  --sidebar-divider: #102945;
+  --accent: #C18D21;
+  --tooltip-bg: #1b2d45;
+}
+
+/* Base Styling */
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Custom Scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #f1f5f9; /* light gray */
+  background: #9da2a8;
   border-radius: 8px;
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: #3b82f6; /* Tailwind blue-500 */
+  background-color: #c7d0e0;
   border-radius: 8px;
   border: 2px solid #f1f5f9;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background-color: #2563eb; /* Tailwind blue-600 */
+  background-color: #c5cee4;
 }
 
-
+/* Floating Box Animation */
 @keyframes floating-box {
   0% {
     transform: translateY(0) scale(1);
@@ -52,64 +105,5 @@
 }
 
 .animate-floating-box {
-  animation-name: floating-box;
-  animation-timing-function: ease-in-out;
-  animation-iteration-count: infinite;
-}
-
-/* index.css or App.css */
-:root {
-  --bg-color: white;
-  --text-color: black;
-  --bot-bg: #f0f0f0;
-  --user-bg: #e0e0e0;
-}
-
-.dark {
-  --bg-color: #0A101A;
-  --text-color: white;
-  --bot-bg: #0C1F34;
-  --user-bg: #CFCED0;
-}
-
-body {
-  background-color: var(--bg-color);
-  color: var(--text-color);
-  transition: all 0.3s ease;
-}
-
-:root {
-  --theme-bg: #ffffff;
-  --theme-text: #000000;
-  --theme-input-bg: #f1f1f1;
-  --theme-placeholder: #888888;
-}
-
-.dark {
-  --theme-bg: #0A101A;
-  --theme-text: #ffffff;
-  --theme-input-bg: #1c1f24;
-  --theme-placeholder: #b3b3b3;
-}
-
-:root {
-  --sidebar-bg: #ffffff;
-  --sidebar-text: #000000;
-  --sidebar-icon: #333333;
-  --sidebar-hover: #f0f0f0;
-  --sidebar-footer: #555555;
-  --sidebar-divider: #ddd;
-  --accent: #C18D21;
-  --tooltip-bg: #333333;
-}
-
-.dark {
-  --sidebar-bg: #0C1F34;
-  --sidebar-text: #ffffff;
-  --sidebar-icon: #CFCED0;
-  --sidebar-hover: #113052;
-  --sidebar-footer: #B3B3B3;
-  --sidebar-divider: #102945;
-  --accent: #C18D21;
-  --tooltip-bg: #1b2d45;
+  animation: floating-box 6s ease-in-out infinite;
 }

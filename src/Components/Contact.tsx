@@ -6,7 +6,7 @@ export default function ContactSection() {
             <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
                 {/* Left - Contact Info */}
                 <div>
-                    <h2 className="text-4xl font-bold text-blue-800 mb-4">Contact Us</h2>
+                    <h2 className="text-4xl font-bold text-blue-900 mb-4">Contact Us</h2>
                     <p className="text-gray-600 mb-8">
                         Feel free to use the form or drop us an email. Old-fashioned phone calls work too.
                     </p>
@@ -29,7 +29,7 @@ export default function ContactSection() {
 
                 {/* Right - Form */}
                 <form className="space-y-6">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-black">
                         <div>
                             <label className="block text-sm font-medium text-gray-700">First Name</label>
                             <input
@@ -76,9 +76,10 @@ export default function ContactSection() {
                     </div>
 
                     <div>
+
                         <button
                             type="submit"
-                            className="bg-blue-500 hover:bg-blue-600 text-white font-medium px-6 py-3 rounded-md transition duration-200"
+                            className="bg-[#dca12b] hover:bg-[#b6821b] border-black border-1 text-white font-medium px-5 py-2 rounded-md transition duration-200"
                         >
                             Submit
                         </button>

@@ -71,7 +71,7 @@ export default function ChatInput({ input, setInput, sendMessage }: Props) {
                     cursor: 'pointer',
                 }}
             >
-                <SendHorizontal style={{ width: 20, height: 20 }} />
+                <SendHorizontal style={{ width: 20, height: 20 }} className='text-[rgb(181,139,55)]' />
             </button>
         </div>
     );

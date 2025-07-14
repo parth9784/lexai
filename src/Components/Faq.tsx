@@ -31,7 +31,7 @@ const faqs = [
     },
 ];
 
-// ✅ Use the correct easing function
+
 const easeOut: [number, number, number, number] = [0.25, 0.1, 0.25, 1];
 
 const containerVariants: Variants = {
@@ -48,7 +48,7 @@ const itemVariants: Variants = {
     visible: {
         opacity: 1,
         y: 0,
-        transition: { duration: 0.4, ease: easeOut }, // ✅ corrected
+        transition: { duration: 0.4, ease: easeOut },
     },
 };
 
@@ -62,7 +62,7 @@ export default function FAQSection() {
     return (
         <section className="bg-white text-gray-800 py-20 px-6 manrope-500">
             <div className="max-w-4xl mx-auto text-center mb-14">
-                <h2 className="text-4xl md:text-5xl text-blue-700 mb-4">
+                <h2 className="text-4xl md:text-5xl text-blue-900 mb-4">
                     Frequently Asked Questions
                 </h2>
                 <p className="text-gray-600 text-md md:text-lg">
@@ -86,7 +86,7 @@ export default function FAQSection() {
                     >
                         <button
                             onClick={() => toggleFAQ(index)}
-                            className="w-full flex justify-between items-center px-6 py-5 text-left text-blue-800 font-medium text-lg focus:outline-none hover:bg-blue-50 transition"
+                            className="w-full flex justify-between items-center px-6 py-5 text-left text-[#b38b3c] font-medium text-lg focus:outline-none hover:bg-blue-50 transition"
                         >
                             {faq.question}
                             <FiChevronDown
