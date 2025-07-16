@@ -31,10 +31,10 @@ export default function SignupPage() {
   };
 
   const validationSchema = Yup.object().shape({
-    firstName: Yup.string().required("First name is required"),
-    lastName: Yup.string().required("Last name is required"),
+    first_name: Yup.string().required("First name is required"),
+    last_name: Yup.string().required("Last name is required"),
     email: Yup.string().email("Invalid email").required("Email is required"),
-    mobile: Yup.string()
+    mobile_number: Yup.string()
       .matches(/^[6-9]\d{9}$/, "Enter a valid mobile number")
       .required("Mobile number is required"),
     // password: Yup.string()
@@ -46,10 +46,10 @@ export default function SignupPage() {
   });
 
   const initialValues = {
-    firstName: "",
-    lastName: "",
+    first_name: "",
+    last_name: "",
     email: "",
-    mobile: "",
+    mobile_number: "",
     captcha: "",
   };
 
@@ -87,24 +87,24 @@ export default function SignupPage() {
               <div className="relative">
                 <User className="absolute top-3 left-4 text-gray-400" size={18} />
                 <Field
-                  name="firstName"
+                  name="first_name"
                   type="text"
                   placeholder="First Name"
                   className="pl-10 pr-4 py-2 w-full rounded-lg border border-gray-300 bg-gray-100 focus:outline-none focus:ring-2 focus:ring-[#C18D21]"
                 />
-                <ErrorMessage name="firstName" component="div" className="text-sm text-red-600 mt-1 ml-1" />
+                <ErrorMessage name="first_name" component="div" className="text-sm text-red-600 mt-1 ml-1" />
               </div>
 
               {/* Last Name */}
               <div className="relative">
                 <User className="absolute top-3 left-4 text-gray-400" size={18} />
                 <Field
-                  name="lastName"
+                  name="last_name"
                   type="text"
                   placeholder="Last Name"
                   className="pl-10 pr-4 py-2 w-full rounded-lg border border-gray-300 bg-gray-100 focus:outline-none focus:ring-2 focus:ring-[#C18D21]"
                 />
-                <ErrorMessage name="lastName" component="div" className="text-sm text-red-600 mt-1 ml-1" />
+                <ErrorMessage name="last_name" component="div" className="text-sm text-red-600 mt-1 ml-1" />
               </div>
 
               {/* Email */}
@@ -123,12 +123,12 @@ export default function SignupPage() {
               <div className="relative">
                 <Smartphone className="absolute top-3 left-4 text-gray-400" size={18} />
                 <Field
-                  name="mobile"
+                  name="mobile_number"
                   type="text"
                   placeholder="Mobile Number"
                   className="pl-10 pr-4 py-2 w-full rounded-lg border border-gray-300 bg-gray-100 focus:outline-none focus:ring-2 focus:ring-[#C18D21]"
                 />
-                <ErrorMessage name="mobile" component="div" className="text-sm text-red-600 mt-1 ml-1" />
+                <ErrorMessage name="mobile_number" component="div" className="text-sm text-red-600 mt-1 ml-1" />
               </div>
 
              
