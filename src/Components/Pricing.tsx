@@ -3,7 +3,7 @@ import { Check, Minus } from "lucide-react";
 
 export default function PricingPage() {
   const [billing, setBilling] = useState<"monthly" | "annually">("monthly");
-  const [selectedPlan, setSelectedPlan] = useState<"basic" | "business" | "enterprise" | null>(null);
+  const [selectedPlan, setSelectedPlan] = useState<"basic" | "business" | "enterprise" | null>("business");
 
   const pricing = {
     monthly: { basic: 22, business: 40, enterprise: 64 },
