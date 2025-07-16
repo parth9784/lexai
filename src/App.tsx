@@ -5,6 +5,8 @@ import LoginPage from './Components/Login';
 import SignupPage from './Components/SignUp';
 import LexAiChat from './Components/ChatBot';
 import PricingPage from './Components/Pricing';
+import FAQSection from './Components/FaqPage';
+import AboutPage from './Components/AboutPage';
 
 function App() {
 
@@ -17,6 +19,8 @@ function App() {
         <Route path="/signup" element={<SignupPage />} />
         <Route path='/chat' element={<LexAiChat />} />
         <Route path='/price' element={<PricingPage />} />
+        <Route path='/faq' element={<FAQSection/>}/>
+        <Route path='/about' element={<AboutPage/>}/>
       </Routes>
       {/* <HomePage /> */}
       {/* <LexAiChat /> */}

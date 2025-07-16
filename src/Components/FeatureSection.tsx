@@ -6,7 +6,7 @@ import {
     Languages,
     Scale,
 } from "lucide-react";
-import HeroSection from "./HeroSection";
+// import HeroSection from "./HeroSection";
 
 const features = [
     {
@@ -43,8 +43,7 @@ const features = [
 
 export default function FeatureSection() {
     return (
-        <div className="min-h-screen bg-white text-gray-900 manrope-500">
-            <HeroSection />
+        <div id='features' className="min-h-screen bg-white text-gray-900 manrope-500">
 
             <motion.div
                 initial={{ opacity: 0, y: -30 }}
