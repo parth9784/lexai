@@ -2,7 +2,9 @@ import { motion, useScroll } from "framer-motion";
 import { useState } from "react";
 import { FiMenu, FiX } from "react-icons/fi";
 import { Scale, ArrowRight } from 'lucide-react';
-export default function Navbar({ }: any) {
+import { Link } from "react-router-dom";
+
+export default function Navbar() {
     const { scrollYProgress } = useScroll();
     const [isOpen, setIsOpen] = useState(false);
     const menuItems = ["Home", "Features", "Docs", "Contact"];
@@ -16,36 +18,36 @@ export default function Navbar({ }: any) {
         >
             <div className="max-w-7xl mx-auto flex items-center justify-between">
 
+                {/* Logo */}
                 <div className="flex items-center space-x-2 cursor-pointer">
                     <Scale size={27} className="text-blue-900" />
                     <span className="text-lg md:text-2xl text-blue-900 manrope-600">LexAi</span>
                 </div>
 
-
+                {/* Desktop Menu */}
                 <ul className="hidden md:flex space-x-8 items-center text-gray-700 font-medium">
                     {menuItems.map((item) => (
-                        <li
-                            key={item}
-                            className="group relative cursor-pointer overflow-hidden"
-                        >
+                        <li key={item} className="group relative cursor-pointer overflow-hidden">
                             <span className="text-gray-700 group-hover:text-[#C08C21] transition duration-200">
                                 {item}
                             </span>
                             <span className="absolute bottom-0 left-0 h-[2px] w-0 bg-[#7c5912] transition-all duration-300 ease-out group-hover:w-full"></span>
                         </li>
-
                     ))}
+
+                    {/* Get Started Button */}
                     <li>
-                        <button
+                        <Link
+                            to="/login"
                             className="ml-4 flex items-center gap-2 border border-[#C08D20] text-black px-3 py-2 rounded-lg hover:bg-[#C08D20] hover:text-white transition duration-200"
                             aria-label="Try Demo"
                         >
                             <span>Get Started</span> <ArrowRight size={18} />
-                        </button>
+                        </Link>
                     </li>
                 </ul>
 
-                {/* Mobile Menu Button */}
+                {/* Mobile Menu Toggle */}
                 <div className="md:hidden">
                     <button onClick={() => setIsOpen(!isOpen)} aria-label="Toggle Menu">
                         {isOpen ? (
@@ -61,30 +63,31 @@ export default function Navbar({ }: any) {
             {isOpen && (
                 <ul className="md:hidden mt-4 space-y-4 text-gray-700 font-medium px-2">
                     {menuItems.map((item) => (
-                        <li
-                            key={item}
-                            className="group relative cursor-pointer overflow-hidden"
-                        >
+                        <li key={item} className="group relative cursor-pointer overflow-hidden">
                             <span className="text-gray-700 group-hover:text-blue-600 transition duration-200">
                                 {item}
                             </span>
                             <span className="absolute bottom-0 left-0 h-[2px] w-0 bg-blue-600 transition-all duration-300 ease-out group-hover:w-full"></span>
                         </li>
-
                     ))}
+
+                    {/* Mobile Get Started */}
                     <li>
-                        <button className="w-full bg-[#C08C21] text-white px-4 py-2 rounded-lg transition duration-200">
+                        <Link
+                            to="/login"
+                            className="block w-full bg-[#C08C21] text-white text-center px-4 py-2 rounded-lg transition duration-200"
+                        >
                             Get Started
-                        </button>
+                        </Link>
                     </li>
                 </ul>
             )}
+
+            {/* Scroll progress bar */}
             <motion.div
                 style={{ scaleX: scrollYProgress }}
-                className="h-[3px]   bg-[#d1a23d] fixed top-[72px] left-0 right-0 z-40"
+                className="h-[3px] bg-[#d1a23d] fixed top-[72px] left-0 right-0 z-40"
             />
-
         </motion.nav>
-
     );
 }
