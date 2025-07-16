@@ -16,7 +16,7 @@ import type { SignupFormData } from "../Services/AuthenticationServices";
 export default function SignupPage() {
   const [captchaCode, setCaptchaCode] = useState("");
   const [rotating, setRotating] = useState(false);
-  const { signUp } = useAuthStore()
+  const { signUp,loading } = useAuthStore()
   
 
   useEffect(() => {
@@ -154,12 +154,28 @@ export default function SignupPage() {
               <ErrorMessage name="captcha" component="div" className="text-sm text-red-600 mt-1 ml-1" />
 
               {/* Submit */}
-              <button
+              {/* <button
                 type="submit"
                 className="w-full flex justify-center items-center gap-2 bg-[#C18D21] hover:bg-[#b0841c] text-white font-semibold py-2 px-4 rounded-lg transition"
               >
                 Sign Up <ArrowRight size={18} />
-              </button>
+              </button> */}
+              <button
+  type="submit"
+  disabled={loading}
+  className={`w-full flex justify-center items-center gap-2 bg-[#C18D21] hover:bg-[#b0841c] text-white font-semibold py-2 px-4 rounded-lg transition ${
+    loading ? "opacity-50 cursor-not-allowed" : ""
+  }`}
+>
+  {loading ? (
+    <span className="animate-pulse">Creating...</span>
+  ) : (
+    <>
+      Sign Up <ArrowRight size={18} />
+    </>
+  )}
+</button>
+
             </Form>
           )}
         </Formik>
