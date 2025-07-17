@@ -50,7 +50,7 @@ const features = [
 export default function FeatureSection() {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const [, setCurrentIndex] = useState(0);
   const navigate = useNavigate();
 
   useEffect(() => {
