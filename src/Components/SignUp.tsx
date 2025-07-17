@@ -55,6 +55,7 @@ export default function SignupPage() {
 
   const handleSubmit = async (values: SignupFormData & { captcha: string }) => {
   try {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const {captcha, ...signUpData } = values; // Remove captcha
     await signUp(signUpData); // Only send relevant data
     toast.success("Signup successful!");
