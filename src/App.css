@@ -107,3 +107,8 @@ body {
 .animate-floating-box {
   animation: floating-box 6s ease-in-out infinite;
 }
+
+.away {
+  transform: translateY(-120vh) rotate(-48deg) !important;
+}
+
