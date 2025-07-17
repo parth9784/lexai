@@ -63,13 +63,21 @@ export default function Navbar() {
 
           {/* Get Started Button */}
           <li>
-            <Link
+            {/* <Link
               to="/login"
               className="ml-4 flex items-center gap-2 border border-[#C08D20] text-black px-3 py-2 rounded-lg hover:bg-[#C08D20] hover:text-white transition duration-200"
               aria-label="Try Demo"
             >
               <span>Get Started</span> <ArrowRight size={18} />
-            </Link>
+            </Link> */}
+            <Link
+      to="/login"
+      onClick={() => setIsOpen(false)}
+      className="relative z-10 block text-white text-center px-4 py-2 rounded-lg font-semibold hover:bg-[#b28323] bg-[#cf9a2f] border border-black shadow-[3px_3px_0_black] overflow-hidden group transition-all duration-300"
+    >
+      <span className="relative z-10 flex items-center gap-2">Get Started <ArrowRight size={18}/></span>
+      <div className="wave-layer absolute top-full left-0 w-full h-1/2 z-0 group-hover:top-1/2 transition-all duration-500" />
+    </Link>
           </li>
         </ul>
 
@@ -123,6 +131,7 @@ export default function Navbar() {
             >
               Get Started
             </Link>
+             
           </li>
         </ul>
       )}

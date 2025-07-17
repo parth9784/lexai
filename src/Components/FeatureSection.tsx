@@ -7,6 +7,7 @@ import {
   Languages,
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
 
 const features = [
   {
@@ -106,9 +107,13 @@ export default function FeatureSection() {
   }, []);
 
   return (
-    <section ref={containerRef} className="min-h-[450vh] flex relative bg-white text-gray-800 manrope-500">
-      {/* LEFT SECTION */}
-      <div className="sticky top-0 flex flex-col justify-center items-start w-1/2 h-screen px-12 lg:px-16">
+    <section
+      ref={containerRef}
+      id="features"
+      className="min-h-[450vh] flex relative bg-white text-gray-800 manrope-500"
+    >
+      {/* LEFT PANEL */}
+      {/* <div className="sticky top-0 flex flex-col justify-center items-start w-1/2 h-screen px-12 lg:px-16">
         <div className="max-w-lg">
           <h2 className="text-5xl lg:text-6xl font-semibold text-blue-900 mb-6 leading-tight">
             Why LexAi?
@@ -116,23 +121,92 @@ export default function FeatureSection() {
           <p className="text-gray-600 text-lg mb-8 leading-relaxed">
             LexAi empowers lawyers and legal teams to research, draft, review, and analyze with AI-enhanced capabilities, built specifically for legal practice.
           </p>
-          <button onClick={() => {navigate('/login')}} className="bg-[#C18D21] cursor-pointer text-white px-8 py-3 rounded-full shadow-lg hover:bg-[#a67413] transition-all duration-300 transform hover:scale-105 font-semibold">
+          <button
+            onClick={() => navigate("/login")}
+            className="bg-[#C18D21] cursor-pointer text-white px-8 py-3 rounded-full shadow-lg hover:bg-[#a67413] transition-all duration-300 transform hover:scale-105 font-semibold"
+          >
             Explore LexAi
           </button>
         </div>
-      </div>
+      </div> */}
+
+      <motion.div
+  className="sticky top-0 flex flex-col justify-center items-start w-1/2 h-screen px-12 lg:px-16"
+  initial="hidden"
+  whileInView="visible"
+  viewport={{ once: true, amount: 0.4 }} // triggers when 40% in view
+  variants={{
+    hidden: {},
+    visible: {
+      transition: {
+        staggerChildren: 0.2,
+      },
+    },
+  }}
+>
+  <motion.div
+    className="max-w-lg"
+    initial="hidden"
+    whileInView="visible"
+    viewport={{ once: true, amount: 0.4 }}
+    variants={{
+      hidden: {},
+      visible: {
+        transition: { staggerChildren: 0.2 },
+      },
+    }}
+  >
+    <motion.h2
+      className="text-5xl lg:text-6xl font-semibold text-blue-900 mb-6 leading-tight"
+      variants={{
+        hidden: { opacity: 0, y: 30 },
+        visible: { opacity: 1, y: 0 },
+      }}
+      transition={{ duration: 0.6 }}
+    >
+      Why LexAi?
+    </motion.h2>
+
+    <motion.p
+      className="text-gray-600 text-lg mb-8 leading-relaxed"
+      variants={{
+        hidden: { opacity: 0, y: 30 },
+        visible: { opacity: 1, y: 0 },
+      }}
+      transition={{ duration: 0.8 }}
+    >
+      LexAi empowers lawyers and legal teams to research, draft, review, and analyze with AI-enhanced capabilities, built specifically for legal practice.
+    </motion.p>
+
+    <motion.button
+      onClick={() => navigate("/login")}
+      className="bg-[#C18D21] cursor-pointer text-white px-8 py-3 rounded-full shadow-lg hover:bg-[#a67413] transition-all duration-300 transform hover:scale-105 font-semibold"
+      variants={{
+        hidden: { opacity: 0, y: 30 },
+        visible: { opacity: 1, y: 0 },
+      }}
+      transition={{ duration: 1 }}
+    >
+      Explore LexAi
+    </motion.button>
+  </motion.div>
+</motion.div>
+      
 
       {/* STACKED CARDS */}
       <div className="w-1/2 sticky top-0 h-screen relative overflow-hidden flex items-center justify-center">
         <div className="relative w-[340px] h-[340px]">
           {features.map((feature, i) => (
-            <div
+            <motion.div
               key={i}
-              ref={el => { cardRefs.current[i] = el; }}
+              ref={(el) => { cardRefs.current[i] = el; }}
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.6, delay: i * 0.1 }}
               className="absolute w-full h-full left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 
                 bg-white rounded-2xl px-8 py-10 border-t-4 border-[#C18D21] shadow-xl 
                 transition-all duration-700 ease-out text-center flex flex-col items-center justify-center"
-              style={{ transformOrigin: 'center center' }}
+              style={{ transformOrigin: "center center" }}
             >
               <div className="w-16 h-16 rounded-full bg-[#C18D21]/10 flex items-center justify-center mb-5 shadow-inner">
                 <feature.icon size={34} className="text-[#C18D21]" />
@@ -143,7 +217,7 @@ export default function FeatureSection() {
               <p className="text-gray-700 text-sm leading-relaxed max-w-[260px]">
                 {feature.description}
               </p>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>

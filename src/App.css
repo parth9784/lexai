@@ -89,26 +89,3 @@ body {
 }
 
 /* Floating Box Animation */
-@keyframes floating-box {
-  0% {
-    transform: translateY(0) scale(1);
-    opacity: 0.8;
-  }
-  50% {
-    transform: translateY(-20px) scale(1.2);
-    opacity: 1;
-  }
-  100% {
-    transform: translateY(-40px) scale(1);
-    opacity: 0.5;
-  }
-}
-
-.animate-floating-box {
-  animation: floating-box 6s ease-in-out infinite;
-}
-
-.away {
-  transform: translateY(-120vh) rotate(-48deg) !important;
-}
-
