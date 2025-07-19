@@ -41,19 +41,6 @@ const features = [
   },
 ];
 
-const cardVariants = {
-  hidden: { opacity: 0, y: 40 },
-  visible: (i: number) => ({
-    opacity: 1,
-    y: 0,
-    transition: {
-      delay: i * 0.1,
-      duration: 0.5,
-      ease: [0.4, 0, 0.2, 1], // Use a cubic bezier array for ease
-    },
-  }),
-};
-
 export default function FeatureSection() {
   const navigate = useNavigate();
 
@@ -85,7 +72,18 @@ export default function FeatureSection() {
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, amount: 0.2 }}
-              variants={cardVariants}
+              variants={ {
+  hidden: { opacity: 0, y: 40 },
+  visible: (i: number) => ({
+    opacity: 1,
+    y: 0,
+    transition: {
+      delay: i * 0.1,
+      duration: 0.5,
+      ease: [0.4, 0, 0.2, 1], // Use a cubic bezier array for ease
+    },
+  }),
+}}
               className="bg-white border-t-4 cursor-pointer border-[#C18D21] rounded-2xl p-6 shadow-md hover:shadow-xl transition text-center"
             >
               <div className="w-14 h-14 mb-4 mx-auto rounded-full bg-[#C18D21]/10 flex items-center justify-center">
