@@ -1,11 +1,4 @@
-import { useEffect, useRef, useState } from "react";
-import {
-  FileText,
-  ClipboardList,
-  FileBarChart2,
-  Search,
-  Languages,
-} from "lucide-react";
+import { FileText, ClipboardList, FileBarChart2, Search, Languages } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 
@@ -48,175 +41,60 @@ const features = [
   },
 ];
 
+const cardVariants = {
+  hidden: { opacity: 0, y: 40 },
+  visible: (i: number) => ({
+    opacity: 1,
+    y: 0,
+    transition: {
+      delay: i * 0.1,
+      duration: 0.5,
+      ease: [0.4, 0, 0.2, 1], // Use a cubic bezier array for ease
+    },
+  }),
+};
+
 export default function FeatureSection() {
-  const containerRef = useRef<HTMLDivElement | null>(null);
-  const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
-  const [, setCurrentIndex] = useState(0);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const handleScroll = () => {
-      if (!containerRef.current) return;
-
-      const container = containerRef.current;
-      const rect = container.getBoundingClientRect();
-      const containerHeight = container.offsetHeight;
-      const windowHeight = window.innerHeight;
-
-      const scrollProgress = Math.max(0, Math.min(1, -rect.top / (containerHeight - windowHeight)));
-      const newIndex = Math.floor(scrollProgress * features.length);
-      const activeIndex = Math.min(newIndex, features.length - 1);
-
-      setCurrentIndex(activeIndex);
-
-      cardRefs.current.forEach((card, i) => {
-        if (!card) return;
-
-        const cardProgress = Math.max(0, Math.min(1, (scrollProgress * features.length) - i));
-
-        if (i < activeIndex) {
-          card.style.transform = `translateY(-${100 + cardProgress * 50}vh) rotate(-45deg) scale(0.8)`;
-          card.style.opacity = '0.3';
-          card.style.zIndex = `${i}`;
-        } else if (i === activeIndex) {
-          const activeProgress = (scrollProgress * features.length) - activeIndex;
-          const rotation = -8 * activeProgress;
-          const scale = 1 + 0.05 * Math.sin(activeProgress * Math.PI);
-
-          card.style.transform = `translateY(0) rotate(${rotation}deg) scale(${scale})`;
-          card.style.opacity = '1';
-          card.style.zIndex = `${features.length}`;
-          card.style.boxShadow = '0 20px 40px rgba(0,0,0,0.15)';
-        } else {
-          const stackOffset = (i - activeIndex) * 8;
-          const rotation = -stackOffset;
-          const yOffset = stackOffset * 2;
-          const scale = 1 - (i - activeIndex) * 0.02;
-
-          card.style.transform = `translateY(${yOffset}px) rotate(${rotation}deg) scale(${scale})`;
-          card.style.opacity = '0.7';
-          card.style.zIndex = `${features.length - i}`;
-          card.style.boxShadow = '0 8px 24px rgba(0,0,0,0.08)';
-        }
-      });
-    };
-
-    handleScroll();
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
   return (
-    <section
-      ref={containerRef}
-      id="features"
-      className="min-h-[450vh] flex relative bg-white text-gray-800 manrope-500"
-    >
-      {/* LEFT PANEL */}
-      {/* <div className="sticky top-0 flex flex-col justify-center items-start w-1/2 h-screen px-12 lg:px-16">
-        <div className="max-w-lg">
-          <h2 className="text-5xl lg:text-6xl font-semibold text-blue-900 mb-6 leading-tight">
+    <section id="features" className="py-20 bg-white text-gray-800 manrope-500">
+      <div className="max-w-7xl mx-auto px-6">
+        {/* Header */}
+        <div className="text-center mb-16">
+          <h2 className="text-5xl lg:text-6xl font-semibold text-blue-900 mb-4">
             Why LexAi?
           </h2>
-          <p className="text-gray-600 text-lg mb-8 leading-relaxed">
+          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
             LexAi empowers lawyers and legal teams to research, draft, review, and analyze with AI-enhanced capabilities, built specifically for legal practice.
           </p>
           <button
             onClick={() => navigate("/login")}
-            className="bg-[#C18D21] cursor-pointer text-white px-8 py-3 rounded-full shadow-lg hover:bg-[#a67413] transition-all duration-300 transform hover:scale-105 font-semibold"
+            className="mt-8 bg-[#C18D21] cursor-pointer text-white px-8 py-3 rounded-full shadow-lg hover:bg-[#a67413] transition-all duration-300 transform hover:scale-105 font-semibold"
           >
             Explore LexAi
           </button>
         </div>
-      </div> */}
 
-      <motion.div
-  className="sticky top-0 flex flex-col justify-center items-start w-1/2 h-screen px-12 lg:px-16"
-  initial="hidden"
-  whileInView="visible"
-  viewport={{ once: true, amount: 0.4 }} // triggers when 40% in view
-  variants={{
-    hidden: {},
-    visible: {
-      transition: {
-        staggerChildren: 0.2,
-      },
-    },
-  }}
->
-  <motion.div
-    className="max-w-lg"
-    initial="hidden"
-    whileInView="visible"
-    viewport={{ once: true, amount: 0.4 }}
-    variants={{
-      hidden: {},
-      visible: {
-        transition: { staggerChildren: 0.2 },
-      },
-    }}
-  >
-    <motion.h2
-      className="text-5xl lg:text-6xl font-semibold text-blue-900 mb-6 leading-tight"
-      variants={{
-        hidden: { opacity: 0, y: 30 },
-        visible: { opacity: 1, y: 0 },
-      }}
-      transition={{ duration: 0.6 }}
-    >
-      Why LexAi?
-    </motion.h2>
-
-    <motion.p
-      className="text-gray-600 text-lg mb-8 leading-relaxed"
-      variants={{
-        hidden: { opacity: 0, y: 30 },
-        visible: { opacity: 1, y: 0 },
-      }}
-      transition={{ duration: 0.8 }}
-    >
-      LexAi empowers lawyers and legal teams to research, draft, review, and analyze with AI-enhanced capabilities, built specifically for legal practice.
-    </motion.p>
-
-    <motion.button
-      onClick={() => navigate("/login")}
-      className="bg-[#C18D21] cursor-pointer text-white px-8 py-3 rounded-full shadow-lg hover:bg-[#a67413] transition-all duration-300 transform hover:scale-105 font-semibold"
-      variants={{
-        hidden: { opacity: 0, y: 30 },
-        visible: { opacity: 1, y: 0 },
-      }}
-      transition={{ duration: 1 }}
-    >
-      Explore LexAi
-    </motion.button>
-  </motion.div>
-</motion.div>
-      
-
-      {/* STACKED CARDS */}
-      <div className="w-1/2 sticky top-0 h-screen relative overflow-hidden flex items-center justify-center">
-        <div className="relative w-[340px] h-[340px]">
+        {/* Feature Cards */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
           {features.map((feature, i) => (
             <motion.div
               key={i}
-              ref={(el) => { cardRefs.current[i] = el; }}
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.6, delay: i * 0.1 }}
-              className="absolute w-full h-full left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 
-                bg-white rounded-2xl px-8 py-10 border-t-4 border-[#C18D21] shadow-xl 
-                transition-all duration-700 ease-out text-center flex flex-col items-center justify-center"
-              style={{ transformOrigin: "center center" }}
+              custom={i}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.2 }}
+              variants={cardVariants}
+              className="bg-white border-t-4 cursor-pointer border-[#C18D21] rounded-2xl p-6 shadow-md hover:shadow-xl transition text-center"
             >
-              <div className="w-16 h-16 rounded-full bg-[#C18D21]/10 flex items-center justify-center mb-5 shadow-inner">
-                <feature.icon size={34} className="text-[#C18D21]" />
+              <div className="w-14 h-14 mb-4 mx-auto rounded-full bg-[#C18D21]/10 flex items-center justify-center">
+                <feature.icon size={28} className="text-[#C18D21]" />
               </div>
-              <h3 className="text-xl font-semibold text-[#C18D21] mb-3">
+              <h3 className="text-xl font-semibold text-[#C18D21] mb-2">
                 {feature.title}
               </h3>
-              <p className="text-gray-700 text-sm leading-relaxed max-w-[260px]">
-                {feature.description}
-              </p>
+              <p className="text-sm text-gray-700">{feature.description}</p>
             </motion.div>
           ))}
         </div>
