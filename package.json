@@ -16,6 +16,7 @@
     "axios": "^1.10.0",
     "clsx": "^2.1.1",
     "formik": "^2.4.6",
+    "js-cookie": "^3.0.5",
     "lucide-react": "^0.525.0",
     "motion": "^12.23.3",
     "next-themes": "^0.4.6",
@@ -32,6 +33,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.30.1",
+    "@types/js-cookie": "^3.0.6",
     "@types/react": "^19.1.8",
     "@types/react-dom": "^19.1.6",
     "@types/react-scroll": "^1.8.10",

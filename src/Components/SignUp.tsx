@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import toast, { Toaster } from 'react-hot-toast';
+import toast, { Toaster } from "react-hot-toast";
 import {
   Mail,
   ArrowRight,
@@ -12,16 +12,18 @@ import {
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 import { useAuthStore } from "../Store/AuthState";
 import type { SignupFormData } from "../Services/AuthenticationServices";
+import { useNavigate } from "react-router-dom";
 
 export default function SignupPage() {
+  const navigate = useNavigate();
   const [captchaCode, setCaptchaCode] = useState("");
   const [rotating, setRotating] = useState(false);
-  const { signUp,loading } = useAuthStore()
-  
+  const { signUp, loading, getCSRFToken } = useAuthStore();
 
   useEffect(() => {
     generateCaptcha();
-  }, []);
+    getCSRFToken(); 
+  }, [getCSRFToken]);
 
   const generateCaptcha = () => {
     setRotating(true);
@@ -37,9 +39,6 @@ export default function SignupPage() {
     mobile_number: Yup.string()
       .matches(/^[6-9]\d{9}$/, "Enter a valid mobile number")
       .required("Mobile number is required"),
-    // password: Yup.string()
-    //   .min(6, "Password must be at least 6 characters")
-    //   .required("Password is required"),
     captcha: Yup.string()
       .oneOf([captchaCode], "Invalid captcha")
       .required("Captcha is required"),
@@ -54,18 +53,17 @@ export default function SignupPage() {
   };
 
   const handleSubmit = async (values: SignupFormData & { captcha: string }) => {
-  try {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const {captcha, ...signUpData } = values; // Remove captcha
-    await signUp(signUpData); // Only send relevant data
-    toast.success("Signup successful!");
-  } catch (error) {
-    console.error("Signup failed:", error);
-    toast.error("Signup failed!");
-  }
-};
-
-
+    try {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const { captcha, ...signUpData } = values;
+      await signUp(signUpData); 
+      navigate("/login");
+      
+    } catch (error) {
+      console.error("Signup failed:", error);
+      toast.error("Signup failed. Please try again.");
+    }
+  };
 
   return (
     <div className="min-h-screen bg-[#f5f7fa] flex flex-col lg:flex-row items-center justify-center gap-12 px-6 py-10">
@@ -132,7 +130,6 @@ export default function SignupPage() {
                 <ErrorMessage name="mobile_number" component="div" className="text-sm text-red-600 mt-1 ml-1" />
               </div>
 
-             
               {/* Captcha */}
               <div className="flex items-center gap-4">
                 <div className="bg-white border text-black text-xl font-bold px-6 py-2 rounded-lg shadow-sm select-none">
@@ -155,28 +152,42 @@ export default function SignupPage() {
               <ErrorMessage name="captcha" component="div" className="text-sm text-red-600 mt-1 ml-1" />
 
               {/* Submit */}
-              {/* <button
-                type="submit"
-                className="w-full flex justify-center items-center gap-2 bg-[#C18D21] hover:bg-[#b0841c] text-white font-semibold py-2 px-4 rounded-lg transition"
-              >
-                Sign Up <ArrowRight size={18} />
-              </button> */}
               <button
-  type="submit"
-  disabled={loading}
-  className={`w-full flex justify-center items-center gap-2 bg-[#C18D21] hover:bg-[#b0841c] text-white font-semibold py-2 px-4 rounded-lg transition ${
-    loading ? "opacity-50 cursor-not-allowed" : ""
-  }`}
->
-  {loading ? (
-    <span className="animate-pulse">Creating...</span>
-  ) : (
-    <>
-      Sign Up <ArrowRight size={18} />
-    </>
-  )}
-</button>
-
+                type="submit"
+                disabled={loading}
+                className={`w-full flex justify-center items-center gap-2 bg-[#C18D21] hover:bg-[#b0841c] text-white font-semibold py-2 px-4 rounded-lg transition ${
+                  loading ? "opacity-60 cursor-not-allowed" : ""
+                }`}
+              >
+                {loading ? (
+                  <>
+                    <svg
+                      className="w-5 h-5 mr-2 animate-spin text-white"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                    >
+                      <circle
+                        className="opacity-25"
+                        cx="12"
+                        cy="12"
+                        r="10"
+                        stroke="currentColor"
+                        strokeWidth="4"
+                      />
+                      <path
+                        className="opacity-75"
+                        fill="currentColor"
+                        d="M4 12a8 8 0 018-8V0C5.372 0 0 5.373 0 12h4z"
+                      />
+                    </svg>
+                    Creating...
+                  </>
+                ) : (
+                  <>
+                    Sign Up <ArrowRight size={18} />
+                  </>
+                )}
+              </button>
             </Form>
           )}
         </Formik>
@@ -195,7 +206,7 @@ export default function SignupPage() {
         autoplay
         className="hidden lg:block w-[800px]"
       />
-       <Toaster />
+      <Toaster />
     </div>
   );
 }

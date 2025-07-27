@@ -13,7 +13,7 @@ import { useAuthStore } from "../Store/AuthState";
 
 export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
-    const { loading } = useAuthStore()
+    const { loading, Login } = useAuthStore()
 
   const initialValues = {
     email: "",
@@ -27,6 +27,11 @@ export default function LoginPage() {
 
   const handleSubmit = (values: typeof initialValues) => {
     console.log("Logging in with:", values);
+    const loginData = {
+      username: values.email,
+      password: values.password,
+    }
+    Login(loginData);
     // Add your login API call here
   };
 
