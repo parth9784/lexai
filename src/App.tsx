@@ -7,6 +7,7 @@ import LexAiChat from './Components/ChatBot';
 import PricingPage from './Components/Pricing';
 import FAQSection from './Components/FaqPage';
 import AboutPage from './Components/AboutPage';
+import ForgotPasswordPage from './Components/ForgotPassword';
 
 function App() {
 
@@ -21,6 +22,7 @@ function App() {
         <Route path='/price' element={<PricingPage />} />
         <Route path='/faq' element={<FAQSection/>}/>
         <Route path='/about' element={<AboutPage/>}/>
+        <Route path='/forgot/password' element={<ForgotPasswordPage />} />
       </Routes>
       {/* <HomePage /> */}
       {/* <LexAiChat /> */}

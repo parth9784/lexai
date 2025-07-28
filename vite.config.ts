@@ -5,10 +5,11 @@ import tailwindcss from "@tailwindcss/vite";
 export default defineConfig({
   plugins: [react(), tailwindcss()],
   server:{
-    allowedHosts:['7466d52de189.ngrok-free.app'],
+    allowedHosts:['9daf489077af.ngrok-free.app'],
+    
     proxy:{
       '/api': {
-        target: 'https://530f38c90739.ngrok-free.app/',
+        target: 'https://23204ce1f343.ngrok-free.app/',
         changeOrigin: true,
         secure: true,
         cookieDomainRewrite:'aed4650cd6e9.ngrok-free.app',

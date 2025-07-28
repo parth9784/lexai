@@ -8,19 +8,29 @@ type AuthState = {
   refreshToken: string;
   loading:boolean;
   isLogin: boolean;
+  isAdmin: boolean;
+  email: string;
+  firstName: string;
+  lastName: string;
   setTokens: (token: string, refreshToken: string) => void;
   clearTokens: () => void;
   signUp: (signUpData: SignupFormData) => Promise<void>;
   Login: (loginData: LoginFormData) => Promise<void>;
   getCSRFToken: () => Promise<void>;
+  forgotPassword: (email:string) => Promise<void>;
 
 };
+
 
 export const useAuthStore = create<AuthState>((set) => ({
   token: '',
   refreshToken: '',
   isLogin: false,
-  loading:false,
+  isAdmin: false,
+  email: '',
+  firstName: '',
+  lastName: '',
+  loading: false,
   setTokens: (token, refreshToken) =>
     set(() => ({ token, refreshToken })),
 
@@ -33,15 +43,21 @@ export const useAuthStore = create<AuthState>((set) => ({
       console.log("response of signup", response);
       const { token, refreshToken } = response;
       set({ token, refreshToken });
-      set({loading:false});
+  
+      
       console.log('Signup successful:', token);
       toast.success("Signup successful!");
       toast.success("Check your email for verification instructions.");
+      
+      setTimeout(() => {
+        window.location.href = "/login";
+      }, 500);
+      set({loading:false});
       // set({isLogin:true});
     } catch (error) {
       console.error('Signup failed:', error);
-      set({loading:false});
       toast.error("Signup failed. Please try again.");
+      set({loading:false});
     }
   },
   Login: async (loginData: LoginFormData) => {
@@ -49,11 +65,19 @@ export const useAuthStore = create<AuthState>((set) => ({
       set({loading:true});
       const response = await authenticationServices.Login(loginData);
       console.log("response of login", response);
-
-      const { token, refreshToken } = response;
-      set({ token, refreshToken });
+      set({
+        firstName: response.first_name,
+        lastName: response.last_name,
+        email: response.email,
+        isAdmin: response.is_admin,
+      });
+      
+      toast.success("Login successful!");
+      setTimeout(() => {
+        window.location.href = "/chat";
+      }, 500);
       set({loading:false});
-      console.log('Login successful:', token);
+
     } catch (error) {
       console.error('Login failed:', error);
     }
@@ -69,5 +93,19 @@ export const useAuthStore = create<AuthState>((set) => ({
       throw error; 
     }
   },
+
+  forgotPassword: async (email: string) => {
+    try {
+      const response = await authenticationServices.forgotPassword(email);
+      console.log("response of forgot password", response);
+      toast.success("New Password sent to your email.");
+      setTimeout(()=>{
+         window.location.href = "/login";
+      },500)
+    } catch (error) {
+      console.error('Forgot password failed:', error);
+      toast.error("Failed to send new password. Please try again.");
+    }
+  }
 
 }));

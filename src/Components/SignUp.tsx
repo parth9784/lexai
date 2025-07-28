@@ -8,14 +8,13 @@ import {
   User,
   RotateCcw,
   Smartphone,
+  Loader,
 } from "lucide-react";
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 import { useAuthStore } from "../Store/AuthState";
 import type { SignupFormData } from "../Services/AuthenticationServices";
-import { useNavigate } from "react-router-dom";
 
 export default function SignupPage() {
-  const navigate = useNavigate();
   const [captchaCode, setCaptchaCode] = useState("");
   const [rotating, setRotating] = useState(false);
   const { signUp, loading, getCSRFToken } = useAuthStore();
@@ -57,13 +56,14 @@ export default function SignupPage() {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { captcha, ...signUpData } = values;
       await signUp(signUpData); 
-      navigate("/login");
+      // navigate("/login");
       
     } catch (error) {
       console.error("Signup failed:", error);
       toast.error("Signup failed. Please try again.");
     }
   };
+
 
   return (
     <div className="min-h-screen bg-[#f5f7fa] flex flex-col lg:flex-row items-center justify-center gap-12 px-6 py-10">
@@ -160,33 +160,15 @@ export default function SignupPage() {
                 }`}
               >
                 {loading ? (
-                  <>
-                    <svg
-                      className="w-5 h-5 mr-2 animate-spin text-white"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                    >
-                      <circle
-                        className="opacity-25"
-                        cx="12"
-                        cy="12"
-                        r="10"
-                        stroke="currentColor"
-                        strokeWidth="4"
-                      />
-                      <path
-                        className="opacity-75"
-                        fill="currentColor"
-                        d="M4 12a8 8 0 018-8V0C5.372 0 0 5.373 0 12h4z"
-                      />
-                    </svg>
-                    Creating...
-                  </>
-                ) : (
-                  <>
-                    Sign Up <ArrowRight size={18} />
-                  </>
-                )}
+  <div className="flex items-center gap-2">
+    <Loader className="animate-spin" size={16} />
+    Creating...
+  </div>
+) : (
+  <div className="flex items-center gap-2">
+    Sign Up <ArrowRight size={18} />
+  </div>
+)}
               </button>
             </Form>
           )}

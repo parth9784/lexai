@@ -84,9 +84,9 @@ class AuthenticationServices {
     }
   }
 
-  async forgotPassword(username: string) {
+  async forgotPassword(email: string) {
     try {
-      const response = await axiosInstance.post("accounts/forgot-password/", { username });
+      const response = await axiosInstance.post("accounts/forgot-password/", { username:email });
       console.log("response of forgot password", response.data);
       return response.data;
     } catch (error) {

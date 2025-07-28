@@ -7,9 +7,11 @@ import {
   Eye,
   EyeOff,
   ArrowRight,
+  Loader,
 } from "lucide-react";
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 import { useAuthStore } from "../Store/AuthState";
+import { Toaster } from "react-hot-toast";
 
 export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
@@ -104,12 +106,16 @@ export default function LoginPage() {
   } text-white font-semibold py-2 px-4 rounded-lg transition`}
 >
   {loading ? (
-    <span className="animate-pulse">Logging in...</span>
-  ) : (
-    <>
-      Login <ArrowRight size={18} />
-    </>
-  )}
+  <div className="flex items-center gap-2 animate-pulse">
+    <Loader className="animate-spin" size={14} />
+    <span>Logging in...</span>
+  </div>
+) : (
+  <>
+    Login <ArrowRight size={18} />
+  </>
+)}
+
 </button>
             </Form>
           )}
@@ -117,9 +123,9 @@ export default function LoginPage() {
 
         <div className="flex justify-between items-center mt-4 text-sm text-gray-600">
           <label className="flex items-center gap-2">
-            <input type="checkbox" className="accent-[#C18D21]" /> Remember me
+            {/* <input type="checkbox" className="accent-[#C18D21]" /> Remember me */}
           </label>
-          <a href="#" className="text-[#C18D21] hover:underline">
+          <a href="/forgot/password" className="text-[#C18D21] hover:underline">
             Forgot password?
           </a>
         </div>
@@ -138,6 +144,7 @@ export default function LoginPage() {
         autoplay
         className="hidden lg:block w-[1000px]"
       />
+      <Toaster />
     </div>
   );
 }
