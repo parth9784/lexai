@@ -4,13 +4,15 @@ import Sidebar from "./Sidebar";
 import ChatInput from "./ChatInput";
 import { Copy, Check, Upload, Scale, Sun, Moon } from "lucide-react";
 import AvatarDropdown from "./AvatarDropdown";
+import ProfilePage from "./ProfilePage";
 
 export default function LexAiChat() {
-  const { darkMode, toggleTheme } = useThemeStore(); // ← access store
+  const { darkMode, toggleTheme } = useThemeStore();
   const [messages, setMessages] = useState<{ from: string; text: string }[]>([]);
   const [input, setInput] = useState('');
   const [collapsed, setCollapsed] = useState(false);
   const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
+  const [view, setView] = useState<"chat" | "profile">("chat"); // 👈 state to toggle view
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const sendMessage = () => {
@@ -29,8 +31,7 @@ export default function LexAiChat() {
   };
 
   useEffect(() => {
-    const root = document.documentElement;
-    root.classList.toggle('dark', darkMode);
+    document.documentElement.classList.toggle('dark', darkMode);
   }, [darkMode]);
 
   return (
@@ -51,44 +52,56 @@ export default function LexAiChat() {
             <button onClick={toggleTheme} className="p-1 rounded cursor-pointer">
               {darkMode ? <Sun size={20} /> : <Moon size={20} />}
             </button>
-            <AvatarDropdown name="Parth Dadhich" email="parth@example.com" isOnline={true} />
+            <AvatarDropdown
+              name="Parth Dadhich"
+              email="parth@example.com"
+              isOnline={true}
+              onProfileClick={() => setView("profile")} // 👈 switch to profile view
+            />
           </div>
         </div>
 
-        {/* Messages */}
-        <div className="flex-1 overflow-y-auto px-6 pt-4 space-y-4">
-          <div className="max-w-4xl w-full mx-auto flex flex-col space-y-4 pb-4">
-            {messages.map((msg, i) => (
-              <div
-                key={i}
-                style={{
-                  backgroundColor: msg.from === 'user' ? 'var(--user-bg)' : 'var(--bot-bg)',
-                  color: msg.from === 'user' ? 'black' : 'var(--text-color)',
-                }}
-                className={`relative group max-w-[85%] w-fit px-4 py-3 rounded-2xl text-sm shadow-md self-${msg.from === 'user' ? 'end' : 'start'}`}
-              >
-                <p className="whitespace-pre-line leading-relaxed pr-6">{msg.text}</p>
-                {msg.from === 'bot' && (
-                  <div className="flex justify-end pt-2">
-                    <button
-                      onClick={() => copyToClipboard(msg.text, i)}
-                      className="hover:text-[#C18D21]"
-                      title="Copy"
-                    >
-                      {copiedIndex === i ? <Check size={16} /> : <Copy size={16} />}
-                    </button>
+        {/* Conditional Rendering */}
+        {view === "profile" ? (
+          <ProfilePage />
+        ) : (
+          <>
+            {/* Messages */}
+            <div className="flex-1 overflow-y-auto px-6 pt-4 space-y-4">
+              <div className="max-w-4xl w-full mx-auto flex flex-col space-y-4 pb-4">
+                {messages.map((msg, i) => (
+                  <div
+                    key={i}
+                    style={{
+                      backgroundColor: msg.from === 'user' ? 'var(--user-bg)' : 'var(--bot-bg)',
+                      color: msg.from === 'user' ? 'black' : 'var(--text-color)',
+                    }}
+                    className={`relative group max-w-[85%] w-fit px-4 py-3 rounded-2xl text-sm shadow-md self-${msg.from === 'user' ? 'end' : 'start'}`}
+                  >
+                    <p className="whitespace-pre-line leading-relaxed pr-6">{msg.text}</p>
+                    {msg.from === 'bot' && (
+                      <div className="flex justify-end pt-2">
+                        <button
+                          onClick={() => copyToClipboard(msg.text, i)}
+                          className="hover:text-[#C18D21]"
+                          title="Copy"
+                        >
+                          {copiedIndex === i ? <Check size={16} /> : <Copy size={16} />}
+                        </button>
+                      </div>
+                    )}
                   </div>
-                )}
+                ))}
+                <div ref={messagesEndRef} />
               </div>
-            ))}
-            <div ref={messagesEndRef} />
-          </div>
-        </div>
+            </div>
 
-        {/* Input */}
-        <div className="px-6 py-4">
-          <ChatInput input={input} setInput={setInput} sendMessage={sendMessage} />
-        </div>
+            {/* Input */}
+            <div className="px-6 py-4">
+              <ChatInput input={input} setInput={setInput} sendMessage={sendMessage} />
+            </div>
+          </>
+        )}
       </main>
     </div>
   );

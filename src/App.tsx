@@ -8,6 +8,7 @@ import PricingPage from './Components/Pricing';
 import FAQSection from './Components/FaqPage';
 import AboutPage from './Components/AboutPage';
 import ForgotPasswordPage from './Components/ForgotPassword';
+import ProfilePage from './Components/ProfilePage';
 
 function App() {
 
@@ -23,6 +24,7 @@ function App() {
         <Route path='/faq' element={<FAQSection/>}/>
         <Route path='/about' element={<AboutPage/>}/>
         <Route path='/forgot/password' element={<ForgotPasswordPage />} />
+        <Route path='/profile/page' element={<ProfilePage />} />
       </Routes>
       {/* <HomePage /> */}
       {/* <LexAiChat /> */}
