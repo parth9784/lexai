@@ -27,8 +27,8 @@ export const useAuthStore = create<AuthState>((set) => ({
   refreshToken: '',
   isLogin: false,
   isAdmin: false,
-  email: '',
-  firstName: '',
+  email: 'parthdadhich458@gmail.com',
+  firstName: 'Parth',
   lastName: '',
   loading: false,
   setTokens: (token, refreshToken) =>

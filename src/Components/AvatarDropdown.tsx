@@ -9,18 +9,18 @@ import {
 import { useViewStore } from "../Store/ViewState"; 
 import ThemedAvatar from "./Avatar";
 import { useThemeStore } from "../Store/ThemeStore";
+import { useAuthStore } from "../Store/AuthState";
 
 type Props = {
-  name: string;
-  email: string;
   isOnline?: boolean;
   onProfileClick?: () => void; 
+  onWalletClick?: () => void; // Add wallet click prop
 };
 
-export default function AvatarDropdown({ name, email, isOnline, onProfileClick }: Props) {
+export default function AvatarDropdown({ isOnline, onProfileClick, onWalletClick }: Props) {
   const [open, setOpen] = useState(false);
-  // const navigate = useNavigate();
   const { darkMode } = useThemeStore();
+  const {firstName, email} = useAuthStore(); // Assuming these are available in the theme store
   const { setView } = useViewStore(); // Use global view state
 
   const handleProfileClick = () => {
@@ -28,6 +28,15 @@ export default function AvatarDropdown({ name, email, isOnline, onProfileClick }
       onProfileClick(); // Use prop callback if provided
     } else {
       setView('profile'); // Otherwise use global state
+    }
+    setOpen(false);
+  };
+
+  const handleWalletClick = () => {
+    if (onWalletClick) {
+      onWalletClick();
+    } else {
+      setView('wallet');
     }
     setOpen(false);
   };
@@ -48,9 +57,9 @@ export default function AvatarDropdown({ name, email, isOnline, onProfileClick }
             : "hover:outline hover:outline-1 hover:outline-gray-300 hover:bg-gray-50"
           }`}
       >
-        <ThemedAvatar name={name} isOnline={isOnline} />
+        <ThemedAvatar name={firstName} isOnline={isOnline} />
         <div className="text-left">
-          <div className={`font-semibold leading-tight ${textColor}`}>{name}</div>
+          <div className={`font-semibold leading-tight ${textColor}`}>{firstName}</div>
           <div className={`text-xs ${subTextColor}`}>Premium Member</div>
         </div>
         <ChevronDown
@@ -65,9 +74,9 @@ export default function AvatarDropdown({ name, email, isOnline, onProfileClick }
         >
           {/* Header */}
           <div className={`flex items-center gap-4 px-4 py-4 border-b ${darkMode ? "border-[#2c2f36]" : "border-gray-200"}`}>
-            <ThemedAvatar name={name} />
+            <ThemedAvatar name={firstName} />
             <div>
-              <div className={`font-semibold ${textColor}`}>{name}</div>
+              <div className={`font-semibold ${textColor}`}>{firstName}</div>
               <div className={`text-xs ${subTextColor}`}>{email}</div>
             </div>
             <ShieldCheck className="ml-auto text-yellow-400" size={18} />
@@ -82,6 +91,7 @@ export default function AvatarDropdown({ name, email, isOnline, onProfileClick }
               <Pencil size={18} className="text-blue-500" /> Profile
             </button>
             <button
+              onClick={handleWalletClick}
               className={`w-full flex items-center gap-3 text-sm px-3 py-2 rounded-lg transition ${textColor} ${hoverBg}`}
             >
               <Wallet size={18} className="text-purple-500" /> Wallet

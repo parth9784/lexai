@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 
-export type ViewType = 'chat' | 'profile';
+export type ViewType = 'chat' | 'profile' | 'wallet';
 
 interface ViewState {
   currentView: ViewType;
@@ -8,7 +8,7 @@ interface ViewState {
   toggleView: () => void;
 }
 
-export const useViewStore = create<ViewState>((set) => ({
+export const useViewStore = create<ViewState>((set, get) => ({
   currentView: 'chat',
   
   setView: (view: ViewType) => set({ currentView: view }),

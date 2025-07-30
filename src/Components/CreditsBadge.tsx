@@ -1,8 +1,10 @@
 import { Coins } from 'lucide-react';
 import { useThemeStore } from '../Store/ThemeStore';
+import { useTransactionStore } from '../Store/TransactionStore';
 
 export default function CreditsBadge() {
   const { darkMode } = useThemeStore();
+  const { credits } = useTransactionStore()
 
   const containerClass = `flex items-center gap-2 px-3 py-3 rounded-md border border-[#C18D21] ${
     darkMode
@@ -17,7 +19,7 @@ export default function CreditsBadge() {
   return (
     <div className={containerClass}>
       <Coins size={16} className={coinColor} />
-      <span className={`font-semibold text-sm ${countColor}`}>200</span>
+      <span className={`font-semibold text-sm ${countColor}`}>{credits}</span>
       <span className={`text-sm ${labelColor}`}>Credits</span>
     </div>
   );

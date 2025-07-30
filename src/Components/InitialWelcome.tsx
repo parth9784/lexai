@@ -1,8 +1,10 @@
 import { Scale } from "lucide-react";
 import { useThemeStore } from "../Store/ThemeStore";
+import { useAuthStore } from "../Store/AuthState";
 
 export default function InitialWelcome() {
   const { darkMode } = useThemeStore();
+  const {firstName} = useAuthStore()
 
   const iconWrapperStyle = {
     backgroundColor: darkMode ? "#0f1e2e" : "#ffffff",
@@ -32,7 +34,7 @@ export default function InitialWelcome() {
         className="text-2xl sm:text-3xl font-bold mt-2"
         style={{ color: textColor }}
       >
-        Hi Parth, Welcome to{" "}
+        Hi {firstName}, Welcome to{" "}
         <span style={{ color: "#C18D21" }}>LexAi</span>
       </h2>
 

@@ -3,11 +3,12 @@ import { useThemeStore } from "../Store/ThemeStore";
 import { useViewStore } from "../Store/ViewState";
 import Sidebar from "./Sidebar";
 import ChatInput from "./ChatInput";
-import { Copy, Check, Upload, Scale, Sun, Moon } from "lucide-react";
+import { Copy, Check, Upload, Scale, Sun, Moon, ArrowLeft } from "lucide-react";
 import AvatarDropdown from "./AvatarDropdown";
 import ProfilePage from "./ProfilePage";
 import CreditsBadge from "./CreditsBadge";
 import InitialWelcome from "./InitialWelcome";
+import WalletDashboard from "./Wallet"; // Add this import
 
 export default function LexAiChat() {
   const { darkMode, toggleTheme } = useThemeStore();
@@ -37,38 +38,16 @@ export default function LexAiChat() {
     document.documentElement.classList.toggle('dark', darkMode);
   }, [darkMode]);
 
-  return (
-    <div className="flex h-screen w-screen overflow-hidden manrope-500" style={{ backgroundColor: 'var(--bg-color)', color: 'var(--text-color)' }}>
-      <Sidebar collapsed={collapsed} toggleSidebar={() => setCollapsed(!collapsed)} />
-
-      <main className="flex-1 flex flex-col">
-        {/* TOP NAVBAR */}
-        <div style={{ backgroundColor: 'var(--bot-bg)' }} className="h-12 px-6 py-8 flex items-center justify-between border-b">
-          <div className="font-semibold text-[22px] flex gap-2 items-center">
-            <Scale size={24} /> LexAi
-          </div>
-
-          <div className="flex items-center gap-4">
-            <button className="flex items-center gap-1 text-[14px] cursor-pointer">
-              <Upload size={16} /> Share
-            </button>
-            <button onClick={toggleTheme} className="p-1 rounded cursor-pointer">
-              {darkMode ? <Sun size={20} /> : <Moon size={20} />}
-            </button>
-            <CreditsBadge />
-            <AvatarDropdown
-              name="Parth Dadhich"
-              email="parth@example.com"
-              isOnline={true}
-              onProfileClick={() => setView("profile")} // Use setView from store
-            />
-          </div>
-        </div>
-
-        {/* Conditional Rendering */}
-        {currentView === "profile" ? ( // Use currentView from store
-          <ProfilePage onBackToChat={() => setView("chat")} />
-        ) : (
+  // Render different views based on currentView
+  const renderCurrentView = () => {
+    switch (currentView) {
+      case 'profile':
+        return <ProfilePage onBackToChat={() => setView("chat")} />;
+      case 'wallet':
+        return <WalletPage onBackToChat={() => setView("chat")} />;
+      case 'chat':
+      default:
+        return (
           <>
             {/* Messages */}
             <div className="flex-1 overflow-y-auto px-6 pt-4 space-y-4">
@@ -112,8 +91,83 @@ export default function LexAiChat() {
               <ChatInput input={input} setInput={setInput} sendMessage={sendMessage} />
             </div>
           </>
-        )}
+        );
+    }
+  };
+
+  return (
+    <div className="flex h-screen w-screen overflow-hidden manrope-500" style={{ backgroundColor: 'var(--bg-color)', color: 'var(--text-color)' }}>
+      <Sidebar collapsed={collapsed} toggleSidebar={() => setCollapsed(!collapsed)} />
+
+      <main className="flex-1 flex flex-col">
+        {/* TOP NAVBAR */}
+        <div style={{ backgroundColor: 'var(--bot-bg)' }} className="h-12 px-6 py-8 flex items-center justify-between border-b">
+          <div className="font-semibold text-[22px] flex gap-2 items-center">
+            <Scale size={24} /> LexAi
+          </div>
+
+          <div className="flex items-center gap-4">
+            <button className="flex items-center gap-1 text-[14px] cursor-pointer">
+              <Upload size={16} /> Share
+            </button>
+            <button onClick={toggleTheme} className="p-1 rounded cursor-pointer">
+              {darkMode ? <Sun size={20} /> : <Moon size={20} />}
+            </button>
+            <CreditsBadge />
+            <AvatarDropdown
+              isOnline={true}
+              onProfileClick={() => setView("profile")}
+              onWalletClick={() => setView("wallet")} // Add wallet click handler
+            />
+          </div>
+        </div>
+
+        {/* Render current view */}
+        {renderCurrentView()}
       </main>
+    </div>
+  );
+}
+
+// Create a wrapper component for the wallet with back navigation
+interface WalletPageProps {
+  onBackToChat?: () => void;
+}
+
+function WalletPage({ onBackToChat }: WalletPageProps) {
+  const { darkMode } = useThemeStore();
+
+  return (
+    <div 
+      className="h-full overflow-y-auto"
+      style={{ 
+        backgroundColor: darkMode ? '#0c111a' : '#f5f7fa',
+        color: darkMode ? '#ffffff' : '#1f2937'
+      }}
+    >
+      {/* Header with Back Button */}
+      {onBackToChat && (
+        <div 
+          className="sticky top-0 z-10 px-6 py-4 border-b"
+          style={{ 
+            backgroundColor: darkMode ? '#111827' : '#ffffff',
+            borderColor: darkMode ? '#2c2f36' : '#e5e7eb'
+          }}
+        >
+          <button
+            onClick={onBackToChat}
+            className="flex items-center gap-2 text-sm font-medium transition-colors hover:opacity-70"
+            style={{ 
+              color: darkMode ? '#9ca3af' : '#6b7280'
+            }}
+          >
+            <ArrowLeft size={16} />
+            Back to Chat
+          </button>
+        </div>
+      )}
+      
+      <WalletDashboard />
     </div>
   );
 }
