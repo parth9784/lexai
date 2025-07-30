@@ -6,6 +6,8 @@ import ChatInput from "./ChatInput";
 import { Copy, Check, Upload, Scale, Sun, Moon } from "lucide-react";
 import AvatarDropdown from "./AvatarDropdown";
 import ProfilePage from "./ProfilePage";
+import CreditsBadge from "./CreditsBadge";
+import InitialWelcome from "./InitialWelcome";
 
 export default function LexAiChat() {
   const { darkMode, toggleTheme } = useThemeStore();
@@ -53,6 +55,7 @@ export default function LexAiChat() {
             <button onClick={toggleTheme} className="p-1 rounded cursor-pointer">
               {darkMode ? <Sun size={20} /> : <Moon size={20} />}
             </button>
+            <CreditsBadge />
             <AvatarDropdown
               name="Parth Dadhich"
               email="parth@example.com"
@@ -70,7 +73,10 @@ export default function LexAiChat() {
             {/* Messages */}
             <div className="flex-1 overflow-y-auto px-6 pt-4 space-y-4">
               <div className="max-w-4xl w-full mx-auto flex flex-col space-y-4 pb-4">
-                {messages.map((msg, i) => (
+                {messages.length === 0 ? (
+                  <InitialWelcome /> // Show welcome message if no messages
+                ) : 
+                messages.map((msg, i) => (
                   <div
                     key={i}
                     className={`flex ${msg.from === 'user' ? 'justify-start' : 'justify-end'} w-full`}

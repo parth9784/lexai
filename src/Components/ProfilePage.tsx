@@ -6,18 +6,18 @@ import { ArrowLeft } from 'lucide-react';
 import { Toaster } from 'react-hot-toast';
 
 interface ProfilePageProps {
-  onBackToChat?: () => void; // Keep this for backward compatibility
+  onBackToChat?: () => void; 
 }
 
 export default function ProfilePage({ onBackToChat }: ProfilePageProps) {
   const { darkMode } = useThemeStore();
-  const { setView } = useViewStore(); // Use global view state
+  const { setView } = useViewStore();
 
   const handleBackToChat = () => {
     if (onBackToChat) {
-      onBackToChat(); // Use prop callback if provided
+      onBackToChat(); 
     } else {
-      setView('chat'); // Otherwise use global state
+      setView('chat'); 
     }
   };
 
