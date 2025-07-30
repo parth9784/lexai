@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { LockKeyhole, Eye, EyeOff, Save, X } from 'lucide-react';
+import { LockKeyhole, Eye, EyeOff, Save, X, Edit } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { useThemeStore } from '../Store/ThemeStore';
 
@@ -116,13 +116,13 @@ export default function ChangePassword() {
     color: '#ffffff'
   };
 
-  const inputClass = `w-full px-4 py-2 pr-12 rounded-lg border text-sm transition-colors focus:outline-none focus:ring-2 focus:ring-[#C18D21]/20 ${
+  const inputClass = `w-full px-4 py-3 pr-12 rounded-lg border text-sm transition-colors focus:outline-none focus:ring-2 focus:ring-[#C18D21]/20 ${
     darkMode 
       ? 'bg-[#0f172a] text-white border-[#334155] placeholder:text-slate-400 focus:border-[#C18D21]' 
       : 'bg-white text-gray-900 border-gray-300 placeholder:text-gray-500 focus:border-[#C18D21]'
   }`;
 
-  const errorInputClass = `w-full px-4 py-2 pr-12 rounded-lg border text-sm transition-colors focus:outline-none focus:ring-2 focus:ring-red-500/20 ${
+  const errorInputClass = `w-full px-4 py-3 pr-12 rounded-lg border text-sm transition-colors focus:outline-none focus:ring-2 focus:ring-red-500/20 ${
     darkMode 
       ? 'bg-[#0f172a] text-white border-red-500 placeholder:text-slate-400 focus:border-red-400' 
       : 'bg-white text-gray-900 border-red-500 placeholder:text-gray-500 focus:border-red-400'
@@ -130,10 +130,6 @@ export default function ChangePassword() {
 
   const labelStyle = {
     color: darkMode ? '#cbd5e1' : '#374151'
-  };
-
-  const eyeButtonStyle = {
-    color: darkMode ? '#94a3b8' : '#6b7280'
   };
 
   return (
@@ -154,9 +150,13 @@ export default function ChangePassword() {
         </div>
         <button
           onClick={() => setIsExpanded(!isExpanded)}
-          className="bg-white text-emerald-700 hover:bg-gray-50 font-medium text-sm px-4 py-2 rounded-lg transition-colors shadow-sm"
+          className="bg-[#C18D21] cursor-pointer hover:bg-[#a67c1e] text-white  font-medium text-sm px-4 py-2 rounded-lg transition-colors shadow-sm"
         >
-          {isExpanded ? 'Close' : 'Update'}
+          {isExpanded ? 'Close' : (
+  <span className="flex items-center gap-1">
+    <Edit size={16} /> Update
+  </span>
+)}
         </button>
       </div>
 
@@ -179,8 +179,9 @@ export default function ChangePassword() {
               <button
                 type="button"
                 onClick={() => togglePasswordVisibility('current')}
-                className="absolute right-3 top-1/2 transform -translate-y-1/2 hover:opacity-70 transition-opacity"
-                style={eyeButtonStyle}
+                className={`absolute right-3 top-1/2 transform -translate-y-1/2 p-1 rounded-md hover:bg-gray-100 transition-all ${
+                  darkMode ? 'hover:bg-gray-700 text-gray-400 hover:text-gray-300' : 'text-gray-500 hover:text-gray-700'
+                }`}
               >
                 {showPasswords.current ? <EyeOff size={18} /> : <Eye size={18} />}
               </button>
@@ -206,8 +207,9 @@ export default function ChangePassword() {
               <button
                 type="button"
                 onClick={() => togglePasswordVisibility('new')}
-                className="absolute right-3 top-1/2 transform -translate-y-1/2 hover:opacity-70 transition-opacity"
-                style={eyeButtonStyle}
+                className={`absolute right-3 top-1/2 transform -translate-y-1/2 p-1 rounded-md hover:bg-gray-100 transition-all ${
+                  darkMode ? 'hover:bg-gray-700 text-gray-400 hover:text-gray-300' : 'text-gray-500 hover:text-gray-700'
+                }`}
               >
                 {showPasswords.new ? <EyeOff size={18} /> : <Eye size={18} />}
               </button>
@@ -233,8 +235,9 @@ export default function ChangePassword() {
               <button
                 type="button"
                 onClick={() => togglePasswordVisibility('confirm')}
-                className="absolute right-3 top-1/2 transform -translate-y-1/2 hover:opacity-70 transition-opacity"
-                style={eyeButtonStyle}
+                className={`absolute right-3 top-1/2 transform -translate-y-1/2 p-1 rounded-md hover:bg-gray-100 transition-all ${
+                  darkMode ? 'hover:bg-gray-700 text-gray-400 hover:text-gray-300' : 'text-gray-500 hover:text-gray-700'
+                }`}
               >
                 {showPasswords.confirm ? <EyeOff size={18} /> : <Eye size={18} />}
               </button>
@@ -248,13 +251,13 @@ export default function ChangePassword() {
           <div className="flex gap-3 pt-4">
             <button
               onClick={handleSave}
-              className="bg-[#C18D21] hover:bg-[#a67c1e] text-white text-sm px-6 py-2 rounded-lg flex items-center gap-2 transition-colors shadow-sm"
+              className="bg-[#C18D21] cursor-pointer hover:bg-[#a67c1e] text-white text-sm px-6 py-2 rounded-lg flex items-center gap-2 transition-colors shadow-sm"
             >
               <Save size={16} /> Save Changes
             </button>
             <button
               onClick={handleCancel}
-              className={`text-sm px-6 py-2 rounded-lg flex items-center gap-2 transition-colors shadow-sm ${
+              className={`text-sm px-6 cursor-pointer py-2 rounded-lg flex items-center gap-2 transition-colors shadow-sm ${
                 darkMode 
                   ? 'bg-slate-700 hover:bg-slate-600 text-slate-300' 
                   : 'bg-gray-200 hover:bg-gray-300 text-gray-700'

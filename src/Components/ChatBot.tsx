@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useThemeStore } from "../Store/ThemeStore"; 
+import { useViewStore } from "../Store/ViewState";
 import Sidebar from "./Sidebar";
 import ChatInput from "./ChatInput";
 import { Copy, Check, Upload, Scale, Sun, Moon } from "lucide-react";
@@ -8,11 +9,11 @@ import ProfilePage from "./ProfilePage";
 
 export default function LexAiChat() {
   const { darkMode, toggleTheme } = useThemeStore();
+  const { currentView, setView } = useViewStore();
   const [messages, setMessages] = useState<{ from: string; text: string }[]>([]);
   const [input, setInput] = useState('');
   const [collapsed, setCollapsed] = useState(false);
   const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
-  const [view, setView] = useState<"chat" | "profile">("chat"); // 👈 state to toggle view
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const sendMessage = () => {
@@ -56,14 +57,14 @@ export default function LexAiChat() {
               name="Parth Dadhich"
               email="parth@example.com"
               isOnline={true}
-              onProfileClick={() => setView("profile")} // 👈 switch to profile view
+              onProfileClick={() => setView("profile")} // Use setView from store
             />
           </div>
         </div>
 
         {/* Conditional Rendering */}
-        {view === "profile" ? (
-          <ProfilePage />
+        {currentView === "profile" ? ( // Use currentView from store
+          <ProfilePage onBackToChat={() => setView("chat")} />
         ) : (
           <>
             {/* Messages */}
@@ -72,24 +73,28 @@ export default function LexAiChat() {
                 {messages.map((msg, i) => (
                   <div
                     key={i}
-                    style={{
-                      backgroundColor: msg.from === 'user' ? 'var(--user-bg)' : 'var(--bot-bg)',
-                      color: msg.from === 'user' ? 'black' : 'var(--text-color)',
-                    }}
-                    className={`relative group max-w-[85%] w-fit px-4 py-3 rounded-2xl text-sm shadow-md self-${msg.from === 'user' ? 'end' : 'start'}`}
+                    className={`flex ${msg.from === 'user' ? 'justify-start' : 'justify-end'} w-full`}
                   >
-                    <p className="whitespace-pre-line leading-relaxed pr-6">{msg.text}</p>
-                    {msg.from === 'bot' && (
-                      <div className="flex justify-end pt-2">
-                        <button
-                          onClick={() => copyToClipboard(msg.text, i)}
-                          className="hover:text-[#C18D21]"
-                          title="Copy"
-                        >
-                          {copiedIndex === i ? <Check size={16} /> : <Copy size={16} />}
-                        </button>
-                      </div>
-                    )}
+                    <div
+                      style={{
+                        backgroundColor: msg.from === 'user' ? 'var(--user-bg)' : 'var(--bot-bg)',
+                        color: msg.from === 'user' ? 'black' : 'var(--text-color)',
+                      }}
+                      className="relative group max-w-[85%] w-fit px-4 py-3 rounded-2xl text-sm shadow-md"
+                    >
+                      <p className="whitespace-pre-line leading-relaxed pr-6">{msg.text}</p>
+                      {msg.from === 'bot' && (
+                        <div className="flex justify-end pt-2">
+                          <button
+                            onClick={() => copyToClipboard(msg.text, i)}
+                            className="hover:text-[#C18D21]"
+                            title="Copy"
+                          >
+                            {copiedIndex === i ? <Check size={16} /> : <Copy size={16} />}
+                          </button>
+                        </div>
+                      )}
+                    </div>
                   </div>
                 ))}
                 <div ref={messagesEndRef} />

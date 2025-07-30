@@ -48,8 +48,8 @@ export default function PersonalInformation() {
 
   const handleSave = async () => {
     try {
-      console.log('Saving user data:', userData);
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      // console.log('Saving user data:', userData);
+      // await new Promise(resolve => setTimeout(resolve, 1000));
       setIsEditing(false);
       toast.success('Profile updated successfully!');
     } catch (error) {
@@ -115,13 +115,13 @@ export default function PersonalInformation() {
             <>
               <button
                 onClick={handleSave}
-                className="bg-green-500 hover:bg-green-600 text-white text-sm px-4 py-2 rounded-lg flex items-center gap-2 transition-colors shadow-sm"
+                className="bg-[#C18D21] cursor-pointer hover:bg-[#a67c1e] text-white text-sm px-4 py-2 rounded-lg flex items-center gap-2 transition-colors shadow-sm"
               >
                 <Save size={16} /> Save
               </button>
               <button
                 onClick={handleCancel}
-                className="bg-gray-500 hover:bg-gray-600 text-white text-sm px-4 py-2 rounded-lg flex items-center gap-2 transition-colors shadow-sm"
+                className="bg-gray-500 cursor-pointer hover:bg-gray-600 text-white text-sm px-4 py-2 rounded-lg flex items-center gap-2 transition-colors shadow-sm"
               >
                 <X size={16} /> Cancel
               </button>
@@ -129,7 +129,7 @@ export default function PersonalInformation() {
           ) : (
             <button
               onClick={() => setIsEditing(true)}
-              className="bg-[#C18D21] hover:bg-[#a67c1e] text-white text-sm px-4 py-2 rounded-lg flex items-center gap-2 transition-colors shadow-sm"
+              className="bg-[#C18D21] cursor-pointer hover:bg-[#a67c1e] text-white text-sm px-4 py-2 rounded-lg flex items-center gap-2 transition-colors shadow-sm"
             >
               <Edit size={16} /> Edit Profile
             </button>
