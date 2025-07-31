@@ -1,12 +1,12 @@
 import { create } from 'zustand';
 
 interface TransactionState {
-  Transactions:any,
+  Transactions:unknown,
   credits:number,
 
 }
 
-export const useTransactionStore = create<TransactionState>((set) => ({
+export const useTransactionStore = create<TransactionState>(() => ({
   credits: 100,
   Transactions: [],
 }));

@@ -8,7 +8,7 @@ interface ViewState {
   toggleView: () => void;
 }
 
-export const useViewStore = create<ViewState>((set, get) => ({
+export const useViewStore = create<ViewState>((set) => ({
   currentView: 'chat',
   
   setView: (view: ViewType) => set({ currentView: view }),

@@ -3,32 +3,6 @@ import { ArrowRight } from "lucide-react";
 // import { useEffect} from "react";
 
 export default function HeroSection() {
-  // const [boxes, setBoxes] = useState<JSX.Element[]>([]);
-
-  // useEffect(() => {
-  //   const generatedBoxes = Array.from({ length: 80 }, (_, i) => {
-  //     const left = Math.random() * 100;
-  //     const top = Math.random() * 100;
-  //     const delay = Math.random() * 5;
-  //     const duration = 4 + Math.random() * 6;
-
-  //     return (
-  //       <div
-  //         key={i}
-  //         className="w-2 h-2 bg-blue-300 absolute animate-floating-box rounded-none"
-  //         style={{
-  //           left: `${left}%`,
-  //           top: `${top}%`,
-  //           animationDelay: `${delay}s`,
-  //           animationDuration: `${duration}s`,
-  //         }}
-  //       />
-  //     );
-  //   });
-  //   setBoxes(generatedBoxes);
-  // }, []);
-
-  // Framer Motion word variants
   const wordVariants = {
     hidden: { opacity: 0, y: 20 },
     visible: {
