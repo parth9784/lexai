@@ -25,7 +25,7 @@ interface UserData {
 
 export default function PersonalInformation() {
   const { darkMode } = useThemeStore();
-  const { profileData } = useProfileStore();
+  const { profileData, updateProfile } = useProfileStore();
   const { email } = useAuthStore();
   const [isEditing, setIsEditing] = useState(false);
   const [userData, setUserData] = useState<UserData>({
@@ -52,8 +52,26 @@ export default function PersonalInformation() {
 
   const handleSave = async () => {
     try {
-      // console.log('Saving user data:', userData);
-      // await new Promise(resolve => setTimeout(resolve, 1000));
+      console.log('Saving user data:', userData);
+
+      // Map the userData to the correct format expected by updateProfile
+      const profileUpdateData = {
+        first_name: userData.firstName,
+        last_name: userData.lastName,
+        bio: userData.bio,
+        mobile_number: userData.mobile,
+        profession: profileData?.profession || '', // Keep existing profession or default to empty
+        advocate_code: userData.advocateCode,
+        city: userData.city,
+        district: userData.district,
+        state: userData.state,
+        country: userData.country,
+        pincode: userData.pincode,
+        practicing_court: userData.practicingCourt,
+      };
+
+      await updateProfile(profileUpdateData);
+      
       setIsEditing(false);
       toast.success('Profile updated successfully!');
     } catch (error) {

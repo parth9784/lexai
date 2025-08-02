@@ -72,11 +72,12 @@ export const useAuthStore = create<AuthState>((set) => ({
         lastName: response.last_name,
         email: response.email,
         isAdmin: response.is_admin,
+        isLogin: true,
       });
 
       
       toast.success("Login successful!");
-      set({loading:false, isLogin: true});
+      set({loading:false,});
      
       setTimeout(() => {
         window.location.href = "/chat";

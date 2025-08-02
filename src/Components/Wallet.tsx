@@ -25,7 +25,7 @@ export default function WalletDashboard() {
             + Add Tokens
           </button>
         </div>
-        <button className="mt-4 md:mt-0 p-2 rounded-full bg-white/20 hover:bg-white/30">
+        <button title='refresh' className="mt-4 md:mt-0 p-2 rounded-full bg-white/20 hover:bg-white/30">
           <RefreshCcw size={18} className="text-white" />
         </button>
       </div>

@@ -43,6 +43,17 @@ class ProfileService {
       throw error;
     }
   }
+
+  async updateProfile(profileData: unknown) {
+    try {
+      const response = await axiosInstance.put("accounts/profile/", profileData);
+      console.log("response of update profile", response.data);
+      return response.data;
+    } catch (error) {
+      console.log("error in updating profile", error);
+      throw error;
+    }
+  }
 }
 
 const profileService = ProfileService.getInstance();
