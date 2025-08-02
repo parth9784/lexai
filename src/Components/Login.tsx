@@ -9,6 +9,7 @@ import { Toaster } from "react-hot-toast";
 export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
   const { loading, Login } = useAuthStore();
+  // const { profileData, getProfile } = useProfileStore();
 
   const initialValues = {
     email: "",
@@ -27,6 +28,7 @@ export default function LoginPage() {
       password: values.password,
     };
     Login(loginData);
+
     // Add your login API call here
   };
 

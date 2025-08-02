@@ -5,6 +5,8 @@ import {
 } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { useThemeStore } from '../Store/ThemeStore';
+import { useProfileStore } from '../Store/ProfileState';
+import { useAuthStore } from '../Store/AuthState';
 
 interface UserData {
   firstName: string;
@@ -23,20 +25,22 @@ interface UserData {
 
 export default function PersonalInformation() {
   const { darkMode } = useThemeStore();
+  const { profileData } = useProfileStore();
+  const { email } = useAuthStore();
   const [isEditing, setIsEditing] = useState(false);
   const [userData, setUserData] = useState<UserData>({
-    firstName: 'Parth',
-    lastName: 'Dadhich',
-    mobile: '9784010528',
-    email: 'parth@example.com',
-    advocateCode: '',
-    district: '',
-    city: '',
-    state: '',
-    country: '',
-    practicingCourt: '',
-    pincode: '',
-    bio: ''
+    firstName: profileData?.first_name || '',
+    lastName: profileData?.last_name || '',
+    mobile: profileData?.mobile_number || '',
+    email: email || '',
+    advocateCode: profileData?.advocate_code || '',
+    district: profileData?.district || '',
+    city: profileData?.city || '',
+    state: profileData?.state || '',
+    country: profileData?.country || '',
+    practicingCourt: profileData?.practicing_court || '',
+    pincode: profileData?.pincode || '',
+    bio: profileData?.bio || ''
   });
 
   const handleInputChange = (field: keyof UserData, value: string) => {

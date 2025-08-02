@@ -106,6 +106,17 @@ class AuthenticationServices {
     }
   }
 
+  async logout(){
+    try {
+      const response = await axiosInstance.post("accounts/logout/");
+      console.log("response of logout", response.data);
+      return response.data;
+    } catch (error) {
+      console.log("error in logout", error);
+      throw error;
+    }
+  }
+
 }
 
 const authenticationServices = AuthenticationServices.getInstance();

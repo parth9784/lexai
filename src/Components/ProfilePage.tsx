@@ -4,6 +4,8 @@ import PersonalInformation from './PersonalInformation';
 import ChangePassword from './ChangePassword';
 import { ArrowLeft } from 'lucide-react';
 import { Toaster } from 'react-hot-toast';
+import { useEffect } from 'react';
+import { useProfileStore } from '../Store/ProfileState';
 
 interface ProfilePageProps {
   onBackToChat?: () => void; 
@@ -12,6 +14,10 @@ interface ProfilePageProps {
 export default function ProfilePage({ onBackToChat }: ProfilePageProps) {
   const { darkMode } = useThemeStore();
   const { setView } = useViewStore();
+  const { getProfile } = useProfileStore();
+  useEffect(() => {
+    getProfile();
+  }, [getProfile]);
 
   const handleBackToChat = () => {
     if (onBackToChat) {
@@ -39,7 +45,7 @@ export default function ProfilePage({ onBackToChat }: ProfilePageProps) {
       >
         <button
           onClick={handleBackToChat}
-          className="flex items-center gap-2 text-sm font-medium transition-colors hover:opacity-70"
+          className="flex cursor-pointer items-center gap-2 text-sm font-medium transition-colors hover:opacity-70"
           style={{ 
             color: darkMode ? '#9ca3af' : '#6b7280'
           }}

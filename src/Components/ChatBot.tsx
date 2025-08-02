@@ -9,15 +9,19 @@ import ProfilePage from "./ProfilePage";
 import CreditsBadge from "./CreditsBadge";
 import InitialWelcome from "./InitialWelcome";
 import WalletDashboard from "./Wallet"; // Add this import
+import { useProfileStore } from "../Store/ProfileState";
+// import { useAuthStore } from "../Store/AuthState";
 
 export default function LexAiChat() {
   const { darkMode, toggleTheme } = useThemeStore();
   const { currentView, setView } = useViewStore();
+  // const {isLogin} = useAuthStore(); // Assuming you have an auth store to check login status
   const [messages, setMessages] = useState<{ from: string; text: string }[]>([]);
   const [input, setInput] = useState('');
   const [collapsed, setCollapsed] = useState(false);
   const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const { getProfile } = useProfileStore();
 
   const sendMessage = () => {
     if (!input.trim()) return;
@@ -35,8 +39,9 @@ export default function LexAiChat() {
   };
 
   useEffect(() => {
-    document.documentElement.classList.toggle('dark', darkMode);
-  }, [darkMode]);
+      document.documentElement.classList.toggle('dark', darkMode);
+      getProfile();
+  }, [darkMode, getProfile]);
 
   // Render different views based on currentView
   const renderCurrentView = () => {

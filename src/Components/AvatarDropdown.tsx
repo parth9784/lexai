@@ -20,7 +20,7 @@ type Props = {
 export default function AvatarDropdown({ isOnline, onProfileClick, onWalletClick }: Props) {
   const [open, setOpen] = useState(false);
   const { darkMode } = useThemeStore();
-  const {firstName, email} = useAuthStore(); // Assuming these are available in the theme store
+  const {firstName, email, logout} = useAuthStore(); // Assuming these are available in the theme store
   const { setView } = useViewStore(); // Use global view state
 
   const handleProfileClick = () => {
@@ -41,6 +41,13 @@ export default function AvatarDropdown({ isOnline, onProfileClick, onWalletClick
     setOpen(false);
   };
 
+  const handleLogout = async () => {
+    logout();
+    setOpen(false);
+    
+    window.location.href = "/"; // Redirect to login page
+  };
+
   const dropdownBg = darkMode ? "bg-[#1b2430] border-[#2c2f36]" : "bg-white border-gray-200";
   const hoverBg = darkMode ? "hover:bg-[#2a303c]" : "hover:bg-gray-100";
   const textColor = darkMode ? "text-white" : "text-black";
@@ -53,8 +60,8 @@ export default function AvatarDropdown({ isOnline, onProfileClick, onWalletClick
         onClick={() => setOpen(!open)}
         className={`flex items-center gap-3 cursor-pointer rounded-xl px-2 py-1 transition-all duration-200 
           ${darkMode
-            ? "hover:outline hover:outline-1 hover:outline-[#2e3745] hover:bg-[#2e37451a]"
-            : "hover:outline hover:outline-1 hover:outline-gray-300 hover:bg-gray-50"
+            ? "hover:outline  hover:outline-[#2e3745] hover:bg-[#2e37451a]"
+            : "hover:outline  hover:outline-gray-300 hover:bg-gray-50"
           }`}
       >
         <ThemedAvatar name={firstName} isOnline={isOnline} />
@@ -97,6 +104,7 @@ export default function AvatarDropdown({ isOnline, onProfileClick, onWalletClick
               <Wallet size={18} className="text-purple-500" /> Wallet
             </button>
             <button
+              onClick={handleLogout}
               className={`w-full flex items-center gap-3 text-sm px-3 py-2 rounded-lg transition ${
                 darkMode
                   ? "text-red-500 hover:bg-[#2a303c]"

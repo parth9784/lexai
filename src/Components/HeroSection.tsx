@@ -68,10 +68,10 @@ export default function HeroSection() {
         </p>
 
         <div className="flex flex-col sm:flex-row justify-center gap-4">
-          <button className="px-6 py-3 bg-[#C08C21] text-white rounded-lg hover:bg-[#d09217] transition shadow-md hover:shadow-xl flex gap-2 items-center justify-center">
+          <button className="px-6 cursor-pointer py-3 bg-[#C08C21] text-white rounded-lg hover:bg-[#d09217] transition shadow-md hover:shadow-xl flex gap-2 items-center justify-center">
             Request a Demo <ArrowRight size={23} />
           </button>
-          <button className="px-6 py-3 border border-black text-[#C08C21] rounded-lg hover:bg-[#C08C21] hover:text-white transition shadow-sm hover:shadow-md">
+          <button className="px-6 cursor-pointer py-3 border border-black text-[#C08C21] rounded-lg hover:bg-[#C08C21] hover:text-white transition shadow-sm hover:shadow-md">
             See the Docs
           </button>
         </div>

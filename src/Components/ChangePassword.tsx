@@ -1,7 +1,8 @@
 import { useState } from 'react';
-import { LockKeyhole, Eye, EyeOff, Save, X, Edit } from 'lucide-react';
+import { LockKeyhole, Eye, EyeOff, Save, X, Edit, Info } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { useThemeStore } from '../Store/ThemeStore';
+import { useProfileStore } from '../Store/ProfileState';
 
 interface PasswordData {
   currentPassword: string;
@@ -12,11 +13,14 @@ interface PasswordData {
 export default function ChangePassword() {
   const { darkMode } = useThemeStore();
   const [isExpanded, setIsExpanded] = useState(false);
+  const { changePassword } = useProfileStore();
   const [showPasswords, setShowPasswords] = useState({
     current: false,
     new: false,
     confirm: false
   });
+  
+  // Ensure initial state is empty
   const [passwordData, setPasswordData] = useState<PasswordData>({
     currentPassword: '',
     newPassword: '',
@@ -30,6 +34,7 @@ export default function ChangePassword() {
       [field]: value
     }));
     
+    // Clear error when user starts typing
     if (errors[field]) {
       setErrors(prev => ({
         ...prev,
@@ -45,26 +50,58 @@ export default function ChangePassword() {
     }));
   };
 
+  const validatePassword = (password: string): string | null => {
+    if (password.length < 8) {
+      return 'Password must be at least 8 characters long';
+    }
+    
+    if (!/[a-z]/.test(password)) {
+      return 'Password must contain at least one lowercase letter';
+    }
+    
+    if (!/[A-Z]/.test(password)) {
+      return 'Password must contain at least one uppercase letter';
+    }
+    
+    if (!/[0-9]/.test(password)) {
+      return 'Password must contain at least one number';
+    }
+    
+    if (!/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(password)) {
+      return 'Password must contain at least one special character';
+    }
+    
+    return null;
+  };
+
   const validatePasswords = (): boolean => {
     const newErrors: Partial<PasswordData> = {};
 
-    if (!passwordData.currentPassword) {
+    // Current password is required
+    if (!passwordData.currentPassword.trim()) {
       newErrors.currentPassword = 'Current password is required';
     }
 
-    if (!passwordData.newPassword) {
+    // New password validation
+    if (!passwordData.newPassword.trim()) {
       newErrors.newPassword = 'New password is required';
-    } else if (passwordData.newPassword.length < 6) {
-      newErrors.newPassword = 'Password must be at least 6 characters';
+    } else {
+      const passwordError = validatePassword(passwordData.newPassword);
+      if (passwordError) {
+        newErrors.newPassword = passwordError;
+      }
     }
 
-    if (!passwordData.confirmPassword) {
+    // Confirm password validation
+    if (!passwordData.confirmPassword.trim()) {
       newErrors.confirmPassword = 'Please confirm your new password';
     } else if (passwordData.newPassword !== passwordData.confirmPassword) {
       newErrors.confirmPassword = 'Passwords do not match';
     }
 
-    if (passwordData.currentPassword === passwordData.newPassword) {
+    // Check if old and new passwords are the same
+    if (passwordData.currentPassword.trim() && passwordData.newPassword.trim() && 
+        passwordData.currentPassword === passwordData.newPassword) {
       newErrors.newPassword = 'New password must be different from current password';
     }
 
@@ -74,13 +111,20 @@ export default function ChangePassword() {
 
   const handleSave = async () => {
     if (!validatePasswords()) {
-      return;
+      return; // Exit early if validation fails
     }
 
     try {
-      console.log('Changing password...');
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      // Only proceed if validation passes
+      const password = {
+        old_password: passwordData.currentPassword,
+        new_password: passwordData.newPassword,
+        confirm_password: passwordData.confirmPassword
+      };
       
+      await changePassword(password);
+      
+      // Reset form on success
       setPasswordData({
         currentPassword: '',
         newPassword: '',
@@ -132,6 +176,10 @@ export default function ChangePassword() {
     color: darkMode ? '#cbd5e1' : '#374151'
   };
 
+  const instructionStyle = {
+    color: darkMode ? '#94a3b8' : '#6b7280'
+  };
+
   return (
     <div 
       className="rounded-2xl overflow-hidden shadow-lg border"
@@ -150,13 +198,13 @@ export default function ChangePassword() {
         </div>
         <button
           onClick={() => setIsExpanded(!isExpanded)}
-          className="bg-[#C18D21] cursor-pointer hover:bg-[#a67c1e] text-white  font-medium text-sm px-4 py-2 rounded-lg transition-colors shadow-sm"
+          className="bg-[#C18D21] cursor-pointer hover:bg-[#a67c1e] text-white font-medium text-sm px-4 py-2 rounded-lg transition-colors shadow-sm"
         >
           {isExpanded ? 'Close' : (
-  <span className="flex items-center gap-1">
-    <Edit size={16} /> Update
-  </span>
-)}
+            <span className="flex items-center gap-1">
+              <Edit size={16} /> Update
+            </span>
+          )}
         </button>
       </div>
 
@@ -214,6 +262,24 @@ export default function ChangePassword() {
                 {showPasswords.new ? <EyeOff size={18} /> : <Eye size={18} />}
               </button>
             </div>
+            
+            {/* Password Requirements */}
+            <div className="mt-2 p-3 rounded-lg" style={{ backgroundColor: darkMode ? '#1e293b' : '#f8fafc' }}>
+              <div className="flex items-start gap-2">
+                <Info size={16} className="mt-0.5 flex-shrink-0" style={{ color: darkMode ? '#64748b' : '#6b7280' }} />
+                <div className="text-xs leading-relaxed" style={instructionStyle}>
+                  <p className="font-medium mb-1">Password requirements:</p>
+                  <ul className="space-y-1">
+                    <li>• At least 8 characters long</li>
+                    <li>• At least one lowercase letter (a-z)</li>
+                    <li>• At least one uppercase letter (A-Z)</li>
+                    <li>• At least one number (0-9)</li>
+                    <li>• At least one special character (!@#$%^&*)</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            
             {errors.newPassword && (
               <p className="text-red-500 text-sm mt-1">{errors.newPassword}</p>
             )}

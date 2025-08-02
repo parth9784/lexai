@@ -18,6 +18,7 @@ type AuthState = {
   Login: (loginData: LoginFormData) => Promise<void>;
   getCSRFToken: () => Promise<void>;
   forgotPassword: (email:string) => Promise<void>;
+  logout: () => Promise<void>;
 
 };
 
@@ -64,6 +65,7 @@ export const useAuthStore = create<AuthState>((set) => ({
     try {
       set({loading:true});
       const response = await authenticationServices.Login(loginData);
+      
       console.log("response of login", response);
       set({
         firstName: response.first_name,
@@ -71,12 +73,15 @@ export const useAuthStore = create<AuthState>((set) => ({
         email: response.email,
         isAdmin: response.is_admin,
       });
+
       
       toast.success("Login successful!");
+      set({loading:false, isLogin: true});
+     
       setTimeout(() => {
         window.location.href = "/chat";
       }, 500);
-      set({loading:false});
+      
 
     } catch (error) {
       console.error('Login failed:', error);
@@ -105,6 +110,18 @@ export const useAuthStore = create<AuthState>((set) => ({
     } catch (error) {
       console.error('Forgot password failed:', error);
       toast.error("Failed to send new password. Please try again.");
+    }
+  },
+
+  logout: async () => {
+    try {
+      const response = await authenticationServices.logout();
+      console.log("response of logout", response);
+      set({isLogin:false});
+      return response;
+    } catch (error) {
+      console.log("error in logout", error);
+      throw error;
     }
   }
 
