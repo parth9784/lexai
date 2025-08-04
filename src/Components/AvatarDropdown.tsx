@@ -44,7 +44,7 @@ export default function AvatarDropdown({ isOnline, onProfileClick, onWalletClick
   const handleLogout = async () => {
     logout();
     setOpen(false);
-    
+
     window.location.href = "/"; // Redirect to login page
   };
 
@@ -93,19 +93,19 @@ export default function AvatarDropdown({ isOnline, onProfileClick, onWalletClick
           <div className="px-4 py-3 space-y-3">
             <button
               onClick={handleProfileClick}
-              className={`w-full flex items-center gap-3 text-sm px-3 py-2 rounded-lg transition ${textColor} ${hoverBg}`}
+              className={`w-full cursor-pointer flex items-center gap-3 text-sm px-3 py-2 rounded-lg transition ${textColor} ${hoverBg}`}
             >
               <Pencil size={18} className="text-blue-500" /> Profile
             </button>
             <button
               onClick={handleWalletClick}
-              className={`w-full flex items-center gap-3 text-sm px-3 py-2 rounded-lg transition ${textColor} ${hoverBg}`}
+              className={`w-full cursor-pointer flex items-center gap-3 text-sm px-3 py-2 rounded-lg transition ${textColor} ${hoverBg}`}
             >
               <Wallet size={18} className="text-purple-500" /> Wallet
             </button>
             <button
               onClick={handleLogout}
-              className={`w-full flex items-center gap-3 text-sm px-3 py-2 rounded-lg transition ${
+              className={`w-full cursor-pointer flex items-center gap-3 text-sm px-3 py-2 rounded-lg transition ${
                 darkMode
                   ? "text-red-500 hover:bg-[#2a303c]"
                   : "text-red-600 hover:bg-gray-100"

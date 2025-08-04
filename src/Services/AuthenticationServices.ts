@@ -18,7 +18,7 @@ export type ChangePasswordFormData = {
   confirm_password: string;
 };
 
-const getCookie = (name:string) => {
+export const getCookie = (name:string) => {
   const cookieValue = document.cookie
     .split('; ')
     .find(row => row.startsWith(name + '='));

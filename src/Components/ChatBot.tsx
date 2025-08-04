@@ -3,13 +3,14 @@ import { useThemeStore } from "../Store/ThemeStore";
 import { useViewStore } from "../Store/ViewState";
 import Sidebar from "./Sidebar";
 import ChatInput from "./ChatInput";
-import { Copy, Check, Upload, Scale, Sun, Moon, ArrowLeft } from "lucide-react";
+import { Copy, Check, Upload, Scale, Sun, Moon, ArrowLeft, Loader2 } from "lucide-react";
 import AvatarDropdown from "./AvatarDropdown";
 import ProfilePage from "./ProfilePage";
 import CreditsBadge from "./CreditsBadge";
 import InitialWelcome from "./InitialWelcome";
 import WalletDashboard from "./Wallet"; // Add this import
 import { useProfileStore } from "../Store/ProfileState";
+import { useChatStore } from "../Store/ChatState";
 // import { useAuthStore } from "../Store/AuthState";
 
 export default function LexAiChat() {
@@ -22,14 +23,35 @@ export default function LexAiChat() {
   const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const { getProfile } = useProfileStore();
+  const { Chat, loading } = useChatStore();
 
-  const sendMessage = () => {
+  const sendMessage = async () => {
     if (!input.trim()) return;
-    setMessages([...messages, { from: 'user', text: input }]);
-    setTimeout(() => {
-      setMessages(prev => [...prev, { from: 'bot', text: 'LexAi is processing your request...' }]);
-    }, 1000);
+
+    setMessages((prev) => [...prev, { from: 'user', text: input }]);
     setInput('');
+
+    try {
+      // Show loading bubble immediately
+      setMessages((prev) => [
+        ...prev,
+        { from: 'bot', text: '__LOADING__' }
+      ]);
+
+      const response = await Chat(input);
+      console.log("Chat API response:", response);
+
+      // Replace the loading bubble with the real response
+      setMessages((prev) => [
+        ...prev.slice(0, -1),
+        { from: 'bot', text: response || 'No response from LexAi.' }
+      ]);
+    } catch (error) {
+      setMessages((prev) => [
+        ...prev.slice(0, -1),
+        { from: 'bot', text: 'Sorry, something went wrong. Please try again.' }
+      ]);
+    }
   };
 
   const copyToClipboard = (text: string, index: number) => {
@@ -72,8 +94,15 @@ export default function LexAiChat() {
                       }}
                       className="relative group max-w-[85%] w-fit px-4 py-3 rounded-2xl text-sm shadow-md"
                     >
-                      <p className="whitespace-pre-line leading-relaxed pr-6">{msg.text}</p>
-                      {msg.from === 'bot' && (
+                      {msg.text === '__LOADING__' ? (
+                        <span className="flex items-center gap-2 text-[#C18D21]">
+                          <Loader2 className="animate-spin" size={16} />
+                          LexAi is Thinking...
+                        </span>
+                      ) : (
+                        <p className="whitespace-pre-line leading-relaxed pr-6">{msg.text}</p>
+                      )}
+                      {msg.from === 'bot' && msg.text !== '__LOADING__' && (
                         <div className="flex justify-end pt-2">
                           <button
                             onClick={() => copyToClipboard(msg.text, i)}
